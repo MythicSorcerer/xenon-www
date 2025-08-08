@@ -48,8 +48,7 @@ function initializeTables($db) {
         username TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         ip_address TEXT,
-        is_deleted INTEGER DEFAULT 0,
-        FOREIGN KEY (user_id) REFERENCES users (id)
+        is_deleted INTEGER DEFAULT 0
     )');
     
     // Create posts table
@@ -61,9 +60,7 @@ function initializeTables($db) {
         username TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         ip_address TEXT,
-        is_deleted INTEGER DEFAULT 0,
-        FOREIGN KEY (thread_id) REFERENCES threads (id),
-        FOREIGN KEY (user_id) REFERENCES users (id)
+        is_deleted INTEGER DEFAULT 0
     )');
     
     // Create notifications table
@@ -74,10 +71,7 @@ function initializeTables($db) {
         post_id INTEGER,
         message TEXT NOT NULL,
         is_read INTEGER DEFAULT 0,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users (id),
-        FOREIGN KEY (thread_id) REFERENCES threads (id),
-        FOREIGN KEY (post_id) REFERENCES posts (id)
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )');
     
     // Create IP cooldowns table
@@ -128,10 +122,7 @@ function updateDatabaseSchema($db) {
             post_id INTEGER,
             message TEXT NOT NULL,
             is_read INTEGER DEFAULT 0,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users (id),
-            FOREIGN KEY (thread_id) REFERENCES threads (id),
-            FOREIGN KEY (post_id) REFERENCES posts (id)
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )');
     }
     
