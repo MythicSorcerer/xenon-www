@@ -26,16 +26,66 @@ if (!$thread) {
     exit;
 }
 
-// Handle thread deletion (admin only)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_thread']) && isset($_SESSION['user_id'])) {
-    // Check if user is admin
-    if (isset($_SESSION['username']) && is_admin($_SESSION['username'])) {
-        $delete_stmt = $db->prepare('UPDATE threads SET is_deleted = 1 WHERE id = :thread_id');
-        $delete_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
-        $delete_stmt->execute();
+// Handle thread deletion with enhanced permissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_thread'])) {
+    $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $can_delete_thread = false;
+    $delete_reason = '';
+    
+    // Check thread deletion permissions
+    
+    // 1. Admin can delete any thread
+    if (isset($_SESSION['user_id']) && isCurrentUserAdmin($db, $_SESSION['user_id'])) {
+        $can_delete_thread = true;
+        $delete_reason = 'admin';
+    }
+    // 2. Logged-in user can delete their own threads
+    elseif (isset($_SESSION['user_id']) && $thread['user_id'] == $_SESSION['user_id']) {
+        $can_delete_thread = true;
+        $delete_reason = 'own_thread';
+    }
+    // 3. Anonymous user can delete their own thread from same IP within 10 minutes
+    elseif (!isset($_SESSION['user_id']) && !$thread['user_id'] && $thread['ip_address'] == $current_ip) {
+        $thread_time = strtotime($thread['created_at']);
+        $current_time = time();
+        $time_diff = $current_time - $thread_time;
         
-        header('Location: forum.php');
-        exit;
+        if ($time_diff <= 600) { // 10 minutes = 600 seconds
+            $can_delete_thread = true;
+            $delete_reason = 'anonymous_window';
+        }
+    }
+    
+    if ($can_delete_thread) {
+        try {
+            // Begin transaction to handle related data
+            $db->exec('BEGIN TRANSACTION');
+            
+            // Delete notifications related to this thread
+            $delete_thread_notifications_stmt = $db->prepare('DELETE FROM notifications WHERE thread_id = :thread_id');
+            $delete_thread_notifications_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
+            $delete_thread_notifications_stmt->execute();
+            
+            // Soft-delete all posts in this thread
+            $delete_posts_stmt = $db->prepare('UPDATE posts SET is_deleted = 1 WHERE thread_id = :thread_id');
+            $delete_posts_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
+            $delete_posts_stmt->execute();
+            
+            // Soft-delete the thread
+            $delete_thread_stmt = $db->prepare('UPDATE threads SET is_deleted = 1 WHERE id = :thread_id');
+            $delete_thread_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
+            $delete_thread_stmt->execute();
+            
+            // Commit the transaction
+            $db->exec('COMMIT');
+            
+            header('Location: forum.php');
+            exit;
+        } catch (Exception $e) {
+            // Rollback on error
+            $db->exec('ROLLBACK');
+            error_log("Thread deletion error: " . $e->getMessage());
+        }
     }
 }
 
@@ -422,9 +472,38 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
                     on <?= date('M j, Y \a\t g:i A', strtotime($thread['created_at'])) ?>
                 </div>
             </div>
-            <?php if ($is_current_user_admin): ?>
+            <?php
+            // Check if current user can delete this thread
+            $can_delete_thread = false;
+            $thread_delete_button_text = 'Delete Thread';
+            $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+            
+            // Admin can delete any thread
+            if ($is_current_user_admin) {
+                $can_delete_thread = true;
+                $thread_delete_button_text = 'Delete Thread (Admin)';
+            }
+            // Logged-in user can delete their own threads
+            elseif (isset($_SESSION['user_id']) && $thread['user_id'] == $_SESSION['user_id']) {
+                $can_delete_thread = true;
+                $thread_delete_button_text = 'Delete Thread';
+            }
+            // Anonymous user can delete their own thread from same IP within 10 minutes
+            elseif (!isset($_SESSION['user_id']) && !$thread['user_id'] && $thread['ip_address'] == $current_ip) {
+                $thread_time = strtotime($thread['created_at']);
+                $current_time = time();
+                $time_diff = $current_time - $thread_time;
+                
+                if ($time_diff <= 600) { // 10 minutes = 600 seconds
+                    $can_delete_thread = true;
+                    $remaining_minutes = ceil((600 - $time_diff) / 60);
+                    $thread_delete_button_text = "Delete Thread ({$remaining_minutes}min left)";
+                }
+            }
+            ?>
+            <?php if ($can_delete_thread): ?>
                 <form method="post" style="margin: 0;">
-                    <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="background: #cc0000; padding: 0.5rem 1rem;">Delete Thread</button>
+                    <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="background: #cc0000; padding: 0.5rem 1rem;"><?= htmlspecialchars($thread_delete_button_text) ?></button>
                 </form>
             <?php endif; ?>
         </div>
