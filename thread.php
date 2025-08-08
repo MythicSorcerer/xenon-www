@@ -427,17 +427,19 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
             margin-left: 0.5rem;
         }
         .delete-btn {
-            background: #ff4444;
-            color: white;
+            background: #00ffe1;
+            color: #000;
             border: none;
             padding: 0.3rem 0.6rem;
             border-radius: 3px;
             font-size: 0.7rem;
             cursor: pointer;
             margin-left: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
         }
         .delete-btn:hover {
-            background: #cc0000;
+            background: #00ccb8;
         }
         .cooldown-error {
             color: #ff4444;
@@ -503,7 +505,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
             ?>
             <?php if ($can_delete_thread): ?>
                 <form method="post" style="margin: 0;">
-                    <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="background: #cc0000; padding: 0.5rem 1rem;"><?= htmlspecialchars($thread_delete_button_text) ?></button>
+                    <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="padding: 0.5rem 1rem;"><?= htmlspecialchars($thread_delete_button_text) ?></button>
                 </form>
             <?php endif; ?>
         </div>
