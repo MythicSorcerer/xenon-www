@@ -37,3 +37,9 @@ sessions/
 # Backup files
 *.bak
 *.backup
+
+# Test and temporary files
+test.php
+test.txt
+cookies.txt
+*.txt
