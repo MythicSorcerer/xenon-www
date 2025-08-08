@@ -1,0 +1,157 @@
+# Xenon Forum
+
+A complete PHP-based forum system with user authentication, admin features, and anonymous posting capabilities.
+
+## Features
+
+### Core Forum Features
+- **User Authentication**: Registration and login system
+- **Thread Creation**: Users can create discussion threads
+- **Post Replies**: Reply to threads with nested discussions
+- **Anonymous Posting**: Support for anonymous users
+- **Notifications**: Get notified when someone replies to your threads
+
+### Admin Features
+- **Separate Admin Configuration**: Easy admin management via `admin_config.php`
+- **Thread Deletion**: Admins can delete entire threads
+- **Post Deletion**: Admins can delete individual posts
+- **Admin Badges**: Visual indicators for admin users
+- **No Cooldown**: Admins bypass all posting restrictions
+
+### Anti-Spam Features
+- **IP-Based Cooldowns**: Anonymous users have posting restrictions
+  - 30 seconds between thread creation
+  - 5 seconds between replies
+- **Registered User Cooldowns**: Reduced restrictions for logged-in users
+- **Admin Exemptions**: No restrictions for admin users
+
+### Security Features
+- **SQL Injection Protection**: Prepared statements throughout
+- **File Access Protection**: `.htaccess` rules protect sensitive files
+- **Session Management**: Secure user sessions
+- **Input Validation**: Proper sanitization of user input
+
+## Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd xenon-forum
+   ```
+
+2. **Set up the database**
+   ```bash
+   php init_db.php
+   php add_admin_features.php
+   php add_ip_cooldown.php
+   ```
+
+3. **Configure admin users**
+   Edit `admin_config.php` and add usernames to the `$admin_usernames` array:
+   ```php
+   $admin_usernames = [
+       'admin',
+       'your_username_here'
+   ];
+   ```
+
+4. **Start the server**
+   ```bash
+   php -S localhost:8000
+   ```
+
+5. **Access the forum**
+   Open your browser to `http://localhost:8000`
+
+## File Structure
+
+### Core Files
+- `index.html` - Homepage
+- `forum.php` - Main forum page with thread listing
+- `thread.php` - Individual thread view with posts
+- `auth.php` - User authentication (login/register)
+- `notifications.php` - User notification center
+
+### Admin Files
+- `admin_config.php` - Admin user configuration
+- `add_admin_features.php` - Database setup for admin features
+- `add_ip_cooldown.php` - Database setup for IP cooldowns
+
+### Database Files
+- `init_db.php` - Initial database creation
+- `reset_db.php` - Reset database (development only)
+- `safe_update_db.php` - Safe database updates
+
+### Configuration
+- `.htaccess` - Apache configuration and security rules
+- `styles.css` - Custom styling
+- `headers.php` - Common header with navigation
+
+## Admin Management
+
+### Adding Admins
+1. Edit `admin_config.php`
+2. Add usernames to the `$admin_usernames` array
+3. Users must register with those exact usernames
+
+### Admin Capabilities
+- Delete any thread or post
+- No posting cooldowns
+- Admin badge display
+- Access to all forum features
+
+## Database Schema
+
+### Tables
+- `users` - User accounts and authentication
+- `threads` - Forum threads
+- `posts` - Thread replies
+- `notifications` - User notifications
+- `ip_cooldowns` - Anonymous user rate limiting
+
+### Key Columns
+- `is_admin` - Admin status flag
+- `is_deleted` - Soft deletion flag
+- `last_post_time` - Cooldown tracking
+- `ip_address` - Anonymous user tracking
+
+## Security Considerations
+
+### Protected Files
+The following files are protected by `.htaccess`:
+- `admin_config.php` - Admin configuration
+- `*.sqlite` - Database files
+- `add_*.php` - Setup scripts
+- `*.log` - Log files
+
+### Production Deployment
+1. Remove or protect setup scripts
+2. Set proper file permissions
+3. Configure SSL/HTTPS
+4. Review admin user list
+5. Monitor log files
+
+## Development
+
+### Adding Features
+1. Create feature branch
+2. Update database schema if needed
+3. Add appropriate security checks
+4. Test with both admin and regular users
+5. Update documentation
+
+### Database Updates
+Use the safe update pattern:
+```php
+// Check if column exists before adding
+$result = $db->query("PRAGMA table_info(table_name)");
+// Add column only if it doesn't exist
+```
+
+## License
+
+This project is open source. See LICENSE file for details.
+
+## Support
+
+For issues and questions, please check the FAQ or create an issue in the repository.
