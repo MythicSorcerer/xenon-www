@@ -39,18 +39,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_thread']) && i
     }
 }
 
-// Handle post deletion (admin only)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post']) && isset($_SESSION['user_id'])) {
+// Handle post deletion with enhanced permissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
     $post_id = (int)$_POST['delete_post'];
+    $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $can_delete = false;
+    $delete_reason = '';
     
-    // Check if user is admin
-    if (isset($_SESSION['username']) && is_admin($_SESSION['username'])) {
-        $delete_stmt = $db->prepare('UPDATE posts SET is_deleted = 1 WHERE id = :post_id');
-        $delete_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
-        $delete_stmt->execute();
+    // Get post information
+    $post_stmt = $db->prepare('SELECT * FROM posts WHERE id = :post_id AND is_deleted = 0');
+    $post_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
+    $post_result = $post_stmt->execute();
+    $post_to_delete = $post_result->fetchArray(SQLITE3_ASSOC);
+    
+    if ($post_to_delete) {
+        // Check deletion permissions
         
-        header('Location: thread.php?id=' . $thread_id);
-        exit;
+        // 1. Admin can delete any post
+        if (isset($_SESSION['user_id']) && isCurrentUserAdmin($db, $_SESSION['user_id'])) {
+            $can_delete = true;
+            $delete_reason = 'admin';
+        }
+        // 2. Logged-in user can delete their own posts
+        elseif (isset($_SESSION['user_id']) && $post_to_delete['user_id'] == $_SESSION['user_id']) {
+            $can_delete = true;
+            $delete_reason = 'own_post';
+        }
+        // 3. Anonymous user can delete their own post from same IP within 10 minutes
+        elseif (!isset($_SESSION['user_id']) && !$post_to_delete['user_id'] && $post_to_delete['ip_address'] == $current_ip) {
+            $post_time = strtotime($post_to_delete['created_at']);
+            $current_time = time();
+            $time_diff = $current_time - $post_time;
+            
+            if ($time_diff <= 600) { // 10 minutes = 600 seconds
+                $can_delete = true;
+                $delete_reason = 'anonymous_window';
+            }
+        }
+        
+        if ($can_delete) {
+            try {
+                // Begin transaction to handle foreign key constraints
+                $db->exec('BEGIN TRANSACTION');
+                
+                // First, delete any notifications related to this post
+                $delete_notifications_stmt = $db->prepare('DELETE FROM notifications WHERE post_id = :post_id');
+                $delete_notifications_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
+                $delete_notifications_stmt->execute();
+                
+                // Then soft-delete the post
+                $delete_stmt = $db->prepare('UPDATE posts SET is_deleted = 1 WHERE id = :post_id');
+                $delete_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
+                $delete_stmt->execute();
+                
+                // Commit the transaction
+                $db->exec('COMMIT');
+                
+                header('Location: thread.php?id=' . $thread_id);
+                exit;
+            } catch (Exception $e) {
+                // Rollback on error
+                $db->exec('ROLLBACK');
+                error_log("Post deletion error: " . $e->getMessage());
+            }
+        }
     }
 }
 
@@ -390,6 +442,34 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
                 $author_admin_data = $author_admin_result->fetchArray(SQLITE3_ASSOC);
                 $post_author_is_admin = $author_admin_data && $author_admin_data['is_admin'];
             }
+            
+            // Check if current user can delete this post
+            $can_delete_post = false;
+            $delete_button_text = 'Delete';
+            $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+            
+            // Admin can delete any post
+            if ($is_current_user_admin) {
+                $can_delete_post = true;
+                $delete_button_text = 'Delete (Admin)';
+            }
+            // Logged-in user can delete their own posts
+            elseif (isset($_SESSION['user_id']) && $post['user_id'] == $_SESSION['user_id']) {
+                $can_delete_post = true;
+                $delete_button_text = 'Delete';
+            }
+            // Anonymous user can delete their own post from same IP within 10 minutes
+            elseif (!isset($_SESSION['user_id']) && !$post['user_id'] && $post['ip_address'] == $current_ip) {
+                $post_time = strtotime($post['created_at']);
+                $current_time = time();
+                $time_diff = $current_time - $post_time;
+                
+                if ($time_diff <= 600) { // 10 minutes = 600 seconds
+                    $can_delete_post = true;
+                    $remaining_minutes = ceil((600 - $time_diff) / 60);
+                    $delete_button_text = "Delete ({$remaining_minutes}min left)";
+                }
+            }
             ?>
             <div class="post">
                 <div class="post-header">
@@ -401,9 +481,9 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
                     </span>
                     <div>
                         <span class="post-date"><?= date('M j, Y \a\t g:i A', strtotime($post['created_at'])) ?></span>
-                        <?php if ($is_current_user_admin): ?>
+                        <?php if ($can_delete_post): ?>
                             <form method="post" style="display: inline;">
-                                <button type="submit" name="delete_post" value="<?= $post['id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                <button type="submit" name="delete_post" value="<?= $post['id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?')"><?= htmlspecialchars($delete_button_text) ?></button>
                             </form>
                         <?php endif; ?>
                     </div>
