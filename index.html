@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Xenon | A Futuristic Minecraft Server</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Headers will be loaded here -->
+  <div id="headers"></div>
+
+  <header>
+    <h1>XENON</h1>
+    <p>The future of Minecraft has arrived.</p>
+  </header>
+
+  <div class="ip-box">
+    <p>Connect Now:</p>
+    <code>xenon.hopto.org</code>
+  </div>
+
+  <section class="features">
+    <div class="feature">
+      <h3>🛡️ Custom PvP Mechanics</h3>
+      <p>Engage in skill-based combat with futuristic weaponry and enhanced armor systems.</p>
+    </div>
+    <div class="feature">
+      <h3>🌌 Unique World Generation</h3>
+      <p>Explore bioluminescent caves, floating cities, and ancient alien ruins.</p>
+    </div>
+    <div class="feature">
+      <h3>🤖 Tech-Infused Economy</h3>
+      <p>Trade with robotic NPCs, upgrade using digital credits, and dominate the market.</p>
+    </div>
+    <div class="feature">
+      <h3>💾 Persistent Player Data</h3>
+      <p>Your progress is stored in a server-wide neural net—level up, evolve, and conquer.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Xenon Minecraft Server. All Rights Reserved.
+  </footer>
+
+  <script>
+    async function loadHeaders() {
+      const res = await fetch('headers.html');
+      const text = await res.text();
+      document.getElementById('headers').innerHTML = text;
+    }
+    loadHeaders();
+  </script>
+</body>
+</html>
+

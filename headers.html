@@ -1,0 +1,70 @@
+<div class="top-bar">
+  <span id="notifications-info">🔔 Loading...</span>
+  <span id="user-info">👤 Loading...</span>
+</div>
+
+<nav>
+  <a href="index.html">Info</a>
+  <a href="news.php">News</a>
+  <a href="events.php">Events</a>
+  <a href="forum.php">Forum</a>
+  <a href="faq.php">FAQ</a>
+  <a href="support.php">Support</a>
+  <a href="rules.php">Rules</a>
+  <a href="status.php">Server Status</a>
+</nav>
+
+<script>
+// Check user session status and notifications
+function updateHeader() {
+  fetch('session_check.php')
+    .then(response => {
+      if (!response.ok) throw new Error('Session check failed');
+      return response.json();
+    })
+    .then(data => {
+      const userInfo = document.getElementById('user-info');
+      const notificationsInfo = document.getElementById('notifications-info');
+      
+      if (data.logged_in && data.username) {
+        // Show actual username and logout link
+        userInfo.innerHTML = `👤 <strong style="color: #00ffe1;">${data.username}</strong> | <a href="auth.php?logout=1" style="color: #ff6b6b; text-decoration: none;">Logout</a>`;
+        
+        // Make bell icon clickable and fetch notification count
+        fetch('notification_count.php')
+          .then(response => {
+            if (!response.ok) throw new Error('Notification count failed');
+            return response.json();
+          })
+          .then(notifData => {
+            if (notifData.count && notifData.count > 0) {
+              notificationsInfo.innerHTML = `<a href="notifications.php" style="color: #00ffe1; text-decoration: none;">🔔 (${notifData.count})</a>`;
+            } else {
+              notificationsInfo.innerHTML = `<a href="notifications.php" style="color: #ccc; text-decoration: none;">🔔</a>`;
+            }
+          })
+          .catch(error => {
+            console.log('Notification count error:', error);
+            notificationsInfo.innerHTML = `<a href="notifications.php" style="color: #ccc; text-decoration: none;">🔔</a>`;
+          });
+      } else {
+        // Not logged in - show login link and non-clickable bell
+        userInfo.innerHTML = `👤 <a href="auth.php" style="color: #00ffe1; text-decoration: none;">Login</a>`;
+        notificationsInfo.innerHTML = `<span style="color: #666;">🔔</span>`;
+      }
+    })
+    .catch(error => {
+      console.log('Session check error:', error);
+      // Fallback when session check fails
+      document.getElementById('user-info').innerHTML = `👤 <a href="auth.php" style="color: #00ffe1; text-decoration: none;">Login</a>`;
+      document.getElementById('notifications-info').innerHTML = `<span style="color: #666;">🔔</span>`;
+    });
+}
+
+// Update header on page load
+updateHeader();
+
+// Update header every 30 seconds for real-time notifications
+setInterval(updateHeader, 30000);
+</script>
+

@@ -1,0 +1,71 @@
+# Apache configuration for Xenon Forum
+
+# Enable error reporting for debugging (remove in production)
+php_flag display_errors on
+php_value error_reporting "E_ALL"
+
+# Session configuration
+php_value session.save_path "/tmp"
+php_flag session.auto_start off
+php_value session.gc_maxlifetime 3600
+
+# File upload and POST settings
+php_value post_max_size 10M
+php_value upload_max_filesize 10M
+php_value max_execution_time 300
+php_value memory_limit 128M
+
+# Security: Protect database file
+<Files "db.sqlite">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Security: Protect sensitive files
+<Files "*.log">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Security: Protect admin configuration file - CRITICAL
+<Files "admin_config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Security: Hide initialization scripts (uncomment after setup)
+# <Files "reset_db.php">
+#     Order allow,deny
+#     Deny from all
+# </Files>
+# <Files "safe_update_db.php">
+#     Order allow,deny
+#     Deny from all
+# </Files>
+# <Files "apache_diagnostic.php">
+#     Order allow,deny
+#     Deny from all
+# </Files>
+# <Files "add_*.php">
+#     Order allow,deny
+#     Deny from all
+# </Files>
+
+# Enable mod_rewrite for clean URLs (optional)
+RewriteEngine On
+
+# Redirect to forum.php if accessing root
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^forum/?$ forum.php [L]
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# Cache static files
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</FilesMatch>
