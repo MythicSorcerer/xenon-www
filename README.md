@@ -39,14 +39,7 @@ A complete PHP-based forum system with user authentication, admin features, and 
    cd xenon-forum
    ```
 
-2. **Set up the database**
-   ```bash
-   php init_db.php
-   php add_admin_features.php
-   php add_ip_cooldown.php
-   ```
-
-3. **Configure admin users**
+2. **Configure admin users (optional)**
    Edit `admin_config.php` and add usernames to the `$admin_usernames` array:
    ```php
    $admin_usernames = [
@@ -55,13 +48,23 @@ A complete PHP-based forum system with user authentication, admin features, and 
    ];
    ```
 
-4. **Start the server**
+3. **Start the server**
    ```bash
    php -S localhost:8000
    ```
 
-5. **Access the forum**
+4. **Access the forum**
    Open your browser to `http://localhost:8000`
+   
+   **The database and all required tables are automatically created on first access!**
+
+### Manual Database Setup (Optional)
+If you prefer manual setup or need to reset the database:
+```bash
+php init_db.php
+php add_admin_features.php
+php add_ip_cooldown.php
+```
 
 ## File Structure
 
@@ -72,15 +75,16 @@ A complete PHP-based forum system with user authentication, admin features, and 
 - `auth.php` - User authentication (login/register)
 - `notifications.php` - User notification center
 
-### Admin Files
+### Database & Admin Files
+- `db_init.php` - **Automatic database initialization (NEW!)**
 - `admin_config.php` - Admin user configuration
-- `add_admin_features.php` - Database setup for admin features
-- `add_ip_cooldown.php` - Database setup for IP cooldowns
+- `add_admin_features.php` - Manual database setup for admin features
+- `add_ip_cooldown.php` - Manual database setup for IP cooldowns
 
-### Database Files
-- `init_db.php` - Initial database creation
+### Legacy Database Files
+- `init_db.php` - Manual database creation (optional)
 - `reset_db.php` - Reset database (development only)
-- `safe_update_db.php` - Safe database updates
+- `safe_update_db.php` - Safe database updates (optional)
 
 ### Configuration
 - `.htaccess` - Apache configuration and security rules
@@ -101,6 +105,12 @@ A complete PHP-based forum system with user authentication, admin features, and 
 - Access to all forum features
 
 ## Database Schema
+
+### Automatic Initialization
+The forum automatically creates and maintains the database schema:
+- **New installations**: All tables and columns created automatically
+- **Existing databases**: Missing tables/columns added automatically
+- **No manual setup required**: Just access the forum and it works!
 
 ### Tables
 - `users` - User accounts and authentication
