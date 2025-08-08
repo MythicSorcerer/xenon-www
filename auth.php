@@ -1,14 +1,11 @@
 <?php
 session_start();
 
-// Use absolute path for database to work with Apache
-$db_path = __DIR__ . '/db.sqlite';
+// Include database initialization
+require_once 'db_init.php';
 
-try {
-    $db = new SQLite3($db_path);
-} catch (Exception $e) {
-    die("Database connection failed. Please ensure the database file exists and is writable.");
-}
+// Initialize database with automatic table creation
+$db = getDatabaseConnection();
 
 // Handle registration
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {

@@ -1,15 +1,10 @@
 <?php
 session_start();
 require_once 'admin_config.php';
+require_once 'db_init.php';
 
-// Use absolute path for database to work with Apache
-$db_path = __DIR__ . '/db.sqlite';
-
-try {
-    $db = new SQLite3($db_path);
-} catch (Exception $e) {
-    die("Database connection failed. Please ensure the database file exists and is writable.");
-}
+// Initialize database with automatic table creation
+$db = getDatabaseConnection();
 
 // Create new thread
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title'])) {
