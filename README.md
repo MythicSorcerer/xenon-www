@@ -14,9 +14,16 @@ A complete PHP-based forum system with user authentication, admin features, and 
 ### Admin Features
 - **Separate Admin Configuration**: Easy admin management via `admin_config.php`
 - **Thread Deletion**: Admins can delete entire threads
-- **Post Deletion**: Admins can delete individual posts
+- **Post Deletion**: Admins can delete any posts
 - **Admin Badges**: Visual indicators for admin users
 - **No Cooldown**: Admins bypass all posting restrictions
+
+### Post Deletion Permissions
+- **Admin Users**: Can delete any post at any time
+- **Logged-in Users**: Can delete their own posts
+- **Anonymous Users**: Can delete their own posts from the same IP address within 10 minutes of posting
+- **Smart UI**: Delete buttons show time remaining for anonymous users
+- **Safe Deletion**: Uses transactions to handle database constraints properly
 
 ### Anti-Spam Features
 - **IP-Based Cooldowns**: Anonymous users have posting restrictions
