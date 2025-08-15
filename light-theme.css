@@ -1,0 +1,625 @@
+/* Light Theme CSS - Clean black on white design */
+
+/* Base styles */
+body {
+    background: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Header styles */
+header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+    color: #333333 !important;
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+header h1 {
+    color: #333333 !important;
+    text-shadow: none !important;
+}
+
+header p {
+    color: #666666 !important;
+}
+
+/* Top bar */
+.top-bar {
+    background: rgba(248, 249, 250, 0.95) !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    backdrop-filter: none !important;
+}
+
+.top-bar a {
+    color: #0066cc !important;
+}
+
+.top-bar a:hover {
+    color: #004499 !important;
+}
+
+/* Navigation */
+nav {
+    background: rgba(248, 249, 250, 0.9) !important;
+    backdrop-filter: none !important;
+}
+
+nav a {
+    color: #0066cc !important;
+    border-bottom: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+nav a:hover {
+    color: #004499 !important;
+    border-bottom-color: #0066cc !important;
+    background: rgba(0, 102, 204, 0.1) !important;
+}
+
+/* Content containers */
+.feature, .new-thread-box, .settings-card, .data-table, .post, .reply-form, .thread-header {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333333 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Headings */
+.feature h3, .settings-card h3, .table-header h3, .thread-title {
+    color: #333333 !important;
+}
+
+.feature h3 a {
+    color: #0066cc !important;
+}
+
+.feature h3 a:hover {
+    color: #004499 !important;
+}
+
+/* Form elements */
+input, textarea, select {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #0066cc !important;
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Buttons */
+.nav-btn, .action-btn, .save-btn {
+    background: #0066cc !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.nav-btn:hover, .action-btn:hover, .save-btn:hover {
+    background: #004499 !important;
+    box-shadow: none !important;
+}
+
+.delete-btn, .select-all-btn, .delete-selected-btn {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.delete-btn:hover, .select-all-btn:hover, .delete-selected-btn:hover {
+    background: #c82333 !important;
+    box-shadow: none !important;
+}
+
+/* Text colors */
+.post-author, .setting-label {
+    color: #333333 !important;
+}
+
+.post-date, .setting-description, .anonymous-note {
+    color: #666666 !important;
+}
+
+/* IP address display - fix white on white issue */
+.ip-box, .ip-display, code {
+    background: #f8f9fa !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+    padding: 0.5rem !important;
+}
+
+/* Messages */
+.message {
+    background: rgba(40, 167, 69, 0.1) !important;
+    border: 1px solid #28a745 !important;
+    color: #155724 !important;
+}
+
+.error, .cooldown-error {
+    background: rgba(220, 53, 69, 0.1) !important;
+    border: 1px solid #dc3545 !important;
+    color: #721c24 !important;
+}
+
+/* Footer */
+footer {
+    background: #f8f9fa !important;
+    color: #666666 !important;
+    border-top: 1px solid #dee2e6 !important;
+}
+
+/* Admin badges */
+.admin-badge {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+/* Table styles */
+.data-row {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.table-header {
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* Font options in settings */
+.font-option {
+    background: #ffffff !important;
+    border: 2px solid #dee2e6 !important;
+}
+
+.font-option:hover {
+    border-color: #0066cc !important;
+    background: rgba(0, 102, 204, 0.05) !important;
+    box-shadow: none !important;
+}
+
+.font-option.selected {
+    border-color: #0066cc !important;
+    background: rgba(0, 102, 204, 0.1) !important;
+    box-shadow: none !important;
+}
+
+/* Links */
+a {
+    color: #0066cc !important;
+}
+
+a:hover {
+    color: #004499 !important;
+}
+
+.back-link {
+    color: #0066cc !important;
+    border: 1px solid #0066cc !important;
+}
+
+.back-link:hover {
+    background: rgba(0, 102, 204, 0.1) !important;
+    box-shadow: none !important;
+}
+
+/* Remove all glow effects */
+* {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Ensure no blue glow on focus */
+*:focus {
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.3) !important;
+    outline-offset: 1px !important;
+}
+
+/* Multi-select controls */
+.multi-select-controls {
+    background: rgba(220, 53, 69, 0.1) !important;
+    border: 1px solid #dc3545 !important;
+}
+
+/* Stats cards */
+.stat-card {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.stat-number {
+    color: #0066cc !important;
+}
+
+.stat-label {
+    color: #666666 !important;
+}
+
+/* Thread and post content */
+.post-content {
+    color: #333333 !important;
+}
+
+/* Notification styles */
+#notifications-info a {
+    color: #0066cc !important;
+}
+
+/* Ensure proper contrast for all text */
+strong {
+    color: #333333 !important;
+}
+
+/* Theme previews in settings */
+.light-preview .theme-sample {
+    color: #333333 !important;
+}
+
+.dark-preview .theme-sample {
+    color: #00ffe1 !important;
+}
+
+/* Fix news.php and events.php article styling */
+.article, .event {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333333 !important;
+}
+
+.article h1, .article h2, .article h3, .article h4, .article h5, .article h6,
+.event h1, .event h2, .event h3, .event h4, .event h5, .event h6 {
+    color: #333333 !important;
+}
+
+.article p, .article li, .article span, .article div,
+.event p, .event li, .event span, .event div {
+    color: #333333 !important;
+}
+
+/* Fix FAQ content styling */
+.faq-container, .faq-content {
+    color: #333333 !important;
+}
+
+.faq-content {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.faq-content h1, .faq-content h2, .faq-content h3, .faq-content h4, .faq-content h5, .faq-content h6 {
+    color: #333333 !important;
+}
+
+.faq-content p, .faq-content li, .faq-content span, .faq-content div {
+    color: #333333 !important;
+}
+
+.faq-title {
+    color: #333333 !important;
+    text-shadow: none !important;
+}
+
+/* Fix hardcoded paragraph colors */
+p[style*="color: #ccc"], p[style*="color:#ccc"] {
+    color: #666666 !important;
+}
+
+/* Fix search box and form inputs in forum */
+.create-post-title-input, .create-post-tags-input {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+.create-post-title-input:focus, .create-post-tags-input:focus {
+    border-color: #0066cc !important;
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Fix all forum input styling - comprehensive override */
+input[type="text"] {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+input[type="text"]:focus {
+    border-color: #0066cc !important;
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Fix new thread box inputs specifically */
+.new-thread-box input[type="text"] {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+.new-thread-box input[type="text"]:focus {
+    border-color: #0066cc !important;
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Fix specific input fields by name */
+.new-thread-box input[name="title"] {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+.new-thread-box input[name="tags"] {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+}
+
+.new-thread-box input[name="title"]:focus,
+.new-thread-box input[name="tags"]:focus {
+    border-color: #0066cc !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+    box-shadow: none !important;
+}
+
+/* Fix new thread box background and border */
+.new-thread-box {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.new-thread-box:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Fix font inheritance for all inputs and placeholders - comprehensive override */
+input[type="text"],
+textarea,
+.search-input,
+.create-post-title-input,
+.create-post-tags-input,
+.new-thread-box input[type="text"],
+.new-thread-box input[name="title"],
+.new-thread-box input[name="tags"] {
+    font-family: inherit !important;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder,
+.search-input::placeholder,
+.create-post-title-input::placeholder,
+.create-post-tags-input::placeholder,
+.new-thread-box input[type="text"]::placeholder,
+.new-thread-box input[name="title"]::placeholder,
+.new-thread-box input[name="tags"]::placeholder {
+    font-family: inherit !important;
+}
+
+/* Override specific hardcoded font families from styles.css */
+input[name="title"] {
+    font-family: inherit !important;
+}
+
+input[name="tags"] {
+    font-family: inherit !important;
+}
+
+/* Override forum search input font */
+form input[name="q"] {
+    font-family: inherit !important;
+}
+
+form input[name="q"]::placeholder {
+    font-family: inherit !important;
+}
+
+/* Fix search page input styling */
+.search-input {
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #333333 !important;
+    font-family: inherit !important;
+}
+
+.search-input:focus {
+    border-color: #0066cc !important;
+    box-shadow: none !important;
+    outline: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+.search-input::placeholder {
+    color: #6c757d !important;
+    font-family: inherit !important;
+}
+
+/* Fix search form container */
+.search-form {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.search-form h2 {
+    color: #333333 !important;
+}
+
+/* Fix search filters */
+.search-filter {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333333 !important;
+}
+
+.search-filter.active {
+    background: #0066cc !important;
+    color: #ffffff !important;
+}
+
+.search-filter:hover {
+    background: #e9ecef !important;
+    color: #333333 !important;
+}
+
+.search-filter.active:hover {
+    background: #004499 !important;
+    color: #ffffff !important;
+}
+
+/* Fix search button */
+.search-btn {
+    background: #0066cc !important;
+    color: #ffffff !important;
+}
+
+.search-btn:hover {
+    background: #004499 !important;
+}
+
+/* Fix search results */
+.search-results {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333333 !important;
+}
+
+.result-title {
+    color: #333333 !important;
+}
+
+.result-title a {
+    color: #0066cc !important;
+}
+
+.result-title a:hover {
+    color: #004499 !important;
+}
+
+.result-meta {
+    color: #666666 !important;
+}
+
+.result-content {
+    color: #333333 !important;
+}
+
+.result-type {
+    background: rgba(0, 102, 204, 0.1) !important;
+    color: #0066cc !important;
+}
+
+.no-results {
+    color: #666666 !important;
+}
+
+/* Fix search results header */
+h3[style*="color: #00ffe1"] {
+    color: #333333 !important;
+}
+
+/* Fix tag styling in search results */
+span[style*="background: rgba(0, 255, 225, 0.2)"] {
+    background: rgba(0, 102, 204, 0.1) !important;
+    color: #0066cc !important;
+    border-color: #0066cc !important;
+}
+
+/* Remove blue rims and borders */
+header {
+    border-bottom: none !important;
+}
+
+nav {
+    border-bottom: none !important;
+}
+
+/* Fix search button styling */
+button[style*="background: #00ffe1"] {
+    background: #0066cc !important;
+    color: #ffffff !important;
+}
+
+button[style*="background: #00ffe1"]:hover {
+    background: #004499 !important;
+}
+
+/* Fix thread creation button */
+button[style*="background: #00ffe1"][style*="Create Thread"] {
+    background: #0066cc !important;
+    color: #ffffff !important;
+}
+
+/* Fix all inline styled elements that use dark theme colors */
+[style*="color: #888"], [style*="color:#888"] {
+    color: #666666 !important;
+}
+
+[style*="color: #ccc"], [style*="color:#ccc"] {
+    color: #666666 !important;
+}
+
+[style*="color: #00ffe1"], [style*="color:#00ffe1"] {
+    color: #0066cc !important;
+}
+
+/* Fix cooldown error styling */
+div[style*="color: #ff4444"] {
+    color: #721c24 !important;
+    background: rgba(220, 53, 69, 0.1) !important;
+    border-color: #dc3545 !important;
+}
+
+/* Fix anonymous user note styling */
+p[style*="color: #888"] {
+    color: #666666 !important;
+}
+
+/* Fix admin badge contrast */
+span[style*="background: #ff6b6b"] {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+/* Fix success message styling */
+span[style*="color: #4f4"] {
+    color: #28a745 !important;
+}
+
+/* Fix all markdown rendered content */
+#faq-content *, #news-articles *, #event-list * {
+    color: #333333 !important;
+}
+
+/* Override any remaining dark theme text */
+.news-container h2, .events-container h2 {
+    color: #333333 !important;
+}
+
+/* Fix status.php styling */
+.status-container {
+    background: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+    color: #333333 !important;
+}
+
+.status-title {
+    color: #333333 !important;
+}
+
+.player-count {
+    color: #666666 !important;
+}
+
+.status-online {
+    color: #28a745 !important;
+}
+
+.status-offline {
+    color: #dc3545 !important;
+}
+
+/* Fix date styling */
+p[style*="font-size: 0.8rem"] {
+    color: #666666 !important;
+}

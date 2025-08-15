@@ -77,8 +77,8 @@ header p {
 .new-thread-box {
   background: rgba(0, 255, 225, 0.15);
   border-radius: 12px;
-  padding: 1.5rem 2rem;
-  margin: 2rem auto;
+  padding: 1.0rem 2rem;
+  margin: 2em auto;
   max-width: 600px;
   box-shadow: 0 0 15px rgba(0, 255, 225, 0.25);
   text-align: center;
@@ -160,6 +160,100 @@ section.features {
   text-align: center;
   transition: transform 0.3s ease;
 }
+
+/* Create post title input - shorter than original */
+.create-post-title-input {
+  width: 100% !important;
+  padding: 0.8rem 1rem !important; /* Reduced from 1rem vertical padding */
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+}
+
+.create-post-title-input:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(0, 255, 225, 0.3) !important;
+}
+
+/* Create post tags input - slightly shorter than title input */
+.create-post-tags-input {
+  width: 100% !important;
+  padding: 0.5rem 1rem !important; /* Slightly less vertical padding than title (0.8rem) */
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+}
+
+.create-post-tags-input:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(0, 255, 225, 0.3) !important;
+}
+
+/* General input styling to override browser defaults */
+input[type="text"] {
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+}
+
+input[type="text"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(0, 255, 225, 0.3) !important;
+}
+
+/* Specific targeting for new thread form inputs */
+.new-thread-box input[type="text"] {
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+  padding: 0.8rem 1rem !important;
+}
+
+.new-thread-box input[type="text"]:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(0, 255, 225, 0.3) !important;
+}
+
+/* Extra specific targeting for the exact input fields */
+.new-thread-box input[name="title"] {
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+  padding: 0.8rem 1rem !important;
+  width: 100% !important;
+}
+
+.new-thread-box input[name="tags"] {
+  background: rgba(0,0,0,0.5) !important;
+  border: 1px solid #00ffe1 !important;
+  border-radius: 5px !important;
+  color: #fff !important;
+  font-family: 'Arial', sans-serif !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+  padding: 0.5rem 1rem !important;
+  width: 100% !important;
+}
 .feature:hover {
   transform: scale(1.05);
 }
@@ -167,6 +261,7 @@ section.features {
   margin-bottom: 1rem;
   color: #ffffff;
 }
+
 .feature p {
   color: #aaa;
 }
@@ -179,4 +274,6 @@ footer {
   font-size: 0.9rem;
   border-top: 1px solid #222;
 }
+
+
 

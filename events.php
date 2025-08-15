@@ -60,7 +60,7 @@ rsort($eventFiles); // Show most recent events first (by filename)
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     async function loadHeaders() {
-      const res = await fetch('headers.html');
+      const res = await fetch('headers.php');
       const html = await res.text();
       document.getElementById('headers').innerHTML = html;
     }

@@ -52,7 +52,7 @@
 
   <script>
     async function loadHeaders() {
-      const res = await fetch('headers.html');
+      const res = await fetch('headers.php');
       const html = await res.text();
       document.getElementById('headers').innerHTML = html;
     }

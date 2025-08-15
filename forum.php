@@ -70,6 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title'])) {
                 throw new Exception("Database execute failed");
             }
             
+            $thread_id = $db->lastInsertRowID();
+            
+            // Handle tags if provided
+            if (!empty($_POST['tags'])) {
+                addTagsToThread($db, $thread_id, $_POST['tags']);
+            }
+            
             // Update last post time for registered users
             if ($user_id) {
                 $update_time_stmt = $db->prepare('UPDATE users SET last_post_time = CURRENT_TIMESTAMP WHERE id = :user_id');
@@ -103,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title'])) {
 }
 
 try {
-    $threads = $db->query('SELECT * FROM threads ORDER BY created_at DESC');
+    $threads = $db->query('SELECT * FROM threads WHERE is_deleted = 0 ORDER BY created_at DESC');
     if (!$threads) {
         throw new Exception("Failed to fetch threads");
     }
@@ -116,6 +123,7 @@ try {
 <html>
 <head>
   <title>Xenon Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -126,6 +134,19 @@ try {
     <h1>Xenon Forum</h1>
     <p>Discuss and Share</p>
   </header>
+
+  <!-- Quick Search Bar -->
+  <div style="max-width: 800px; margin: 0.5rem auto; padding: 0 1rem;">
+    <form method="get" action="search.php" style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <div style="display: flex; gap: 0.5rem;">
+        <input name="q" type="text" placeholder="Quick search threads and posts..." class="create-post-title-input" style="flex: 1;">
+        <button type="submit" style="padding: 0.8rem 1.5rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; transition: background 0.3s;">Search</button>
+      </div>
+      <div style="text-align: left;">
+        <a href="search.php" style="color: #00ffe1; text-decoration: none; font-size: 0.75rem; transition: background 0.3s;">Advanced Search</a>
+      </div>
+    </form>
+  </div>
 
   <div class="new-thread-box">
     <?php if (isset($_SESSION['user_id'])): ?>
@@ -150,7 +171,9 @@ try {
     <?php endif; ?>
     
     <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">
-      <input name="title" type="text" placeholder="New thread title" required style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.5); border: 1px solid #00ffe1; border-radius: 5px; color: #fff; font-family: 'Arial', sans-serif; font-size: 14px; box-sizing: border-box;">
+      <input name="title" type="text" placeholder="New thread title" required class="create-post-title-input">
+      <input name="tags" type="text" placeholder="Tags (comma-separated, e.g. gaming, discussion, help)" class="create-post-tags-input">
+      <p style="color: #888; font-size: 0.8rem; margin: -0.5rem 0 0 0;">Add tags to help others find your thread. Separate multiple tags with commas.</p>
       <button type="submit" style="width: 200px; padding: 1rem 2rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; align-self: center; transition: background 0.3s;">Create Thread</button>
     </form>
   </div>

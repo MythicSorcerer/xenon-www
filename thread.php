@@ -66,13 +66,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_thread'])) {
             $delete_thread_notifications_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
             $delete_thread_notifications_stmt->execute();
             
-            // Soft-delete all posts in this thread
-            $delete_posts_stmt = $db->prepare('UPDATE posts SET is_deleted = 1 WHERE thread_id = :thread_id');
+            // Delete post tags for posts in this thread
+            $delete_post_tags_stmt = $db->prepare('DELETE FROM post_tags WHERE post_id IN (SELECT id FROM posts WHERE thread_id = :thread_id)');
+            $delete_post_tags_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
+            $delete_post_tags_stmt->execute();
+            
+            // Permanently delete all posts in this thread
+            $delete_posts_stmt = $db->prepare('DELETE FROM posts WHERE thread_id = :thread_id');
             $delete_posts_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
             $delete_posts_stmt->execute();
             
-            // Soft-delete the thread
-            $delete_thread_stmt = $db->prepare('UPDATE threads SET is_deleted = 1 WHERE id = :thread_id');
+            // Delete thread tags
+            $delete_thread_tags_stmt = $db->prepare('DELETE FROM thread_tags WHERE thread_id = :thread_id');
+            $delete_thread_tags_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
+            $delete_thread_tags_stmt->execute();
+            
+            // Permanently delete the thread
+            $delete_thread_stmt = $db->prepare('DELETE FROM threads WHERE id = :thread_id');
             $delete_thread_stmt->bindValue(':thread_id', $thread_id, SQLITE3_INTEGER);
             $delete_thread_stmt->execute();
             
@@ -137,8 +147,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
                 $delete_notifications_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
                 $delete_notifications_stmt->execute();
                 
-                // Then soft-delete the post
-                $delete_stmt = $db->prepare('UPDATE posts SET is_deleted = 1 WHERE id = :post_id');
+                // Delete post tags
+                $delete_post_tags_stmt = $db->prepare('DELETE FROM post_tags WHERE post_id = :post_id');
+                $delete_post_tags_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
+                $delete_post_tags_stmt->execute();
+                
+                // Then permanently delete the post
+                $delete_stmt = $db->prepare('DELETE FROM posts WHERE id = :post_id');
                 $delete_stmt->bindValue(':post_id', $post_id, SQLITE3_INTEGER);
                 $delete_stmt->execute();
                 
@@ -223,6 +238,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
             
             $post_id = $db->lastInsertRowID();
             
+            // Handle tags if provided
+            if (!empty($_POST['tags'])) {
+                addTagsToPost($db, $post_id, $_POST['tags']);
+            }
+            
             // Update last post time for registered users and IP addresses
             if ($user_id) {
                 $update_time_stmt = $db->prepare('UPDATE users SET last_post_time = CURRENT_TIMESTAMP WHERE id = :user_id');
@@ -301,6 +321,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
 <html>
 <head>
     <title><?= htmlspecialchars($thread['title']) ?> - Xenon Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css">
     <style>
         .thread-header {
@@ -469,6 +490,17 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
                 <h2 class="thread-title"><?= htmlspecialchars($thread['title']) ?></h2>
+                <?php
+                // Get and display thread tags
+                $thread_tags = getThreadTags($db, $thread_id);
+                if (!empty($thread_tags)):
+                ?>
+                    <div style="margin: 0.1rem 0 0.4rem 0;">
+                        <?php foreach ($thread_tags as $tag): ?>
+                            <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
                 <div class="thread-meta">
                     Started by <strong><?= htmlspecialchars($thread['username']) ?></strong>
                     on <?= date('M j, Y \a\t g:i A', strtotime($thread['created_at'])) ?>
@@ -514,14 +546,10 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
     <div class="posts-container">
         <?php while ($post = $posts_result->fetchArray(SQLITE3_ASSOC)): ?>
             <?php
-            // Check if post author is admin
+            // Check if post author is admin using admin_config.php
             $post_author_is_admin = false;
             if ($post['user_id']) {
-                $author_admin_stmt = $db->prepare('SELECT is_admin FROM users WHERE id = :user_id');
-                $author_admin_stmt->bindValue(':user_id', $post['user_id'], SQLITE3_INTEGER);
-                $author_admin_result = $author_admin_stmt->execute();
-                $author_admin_data = $author_admin_result->fetchArray(SQLITE3_ASSOC);
-                $post_author_is_admin = $author_admin_data && $author_admin_data['is_admin'];
+                $post_author_is_admin = isCurrentUserAdmin($db, $post['user_id']);
             }
             
             // Check if current user can delete this post
@@ -570,6 +598,17 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
                     </div>
                 </div>
                 <div class="post-content"><?= htmlspecialchars($post['content']) ?></div>
+                <?php
+                // Get and display post tags
+                $post_tags = getPostTags($db, $post['id']);
+                if (!empty($post_tags)):
+                ?>
+                    <div style="margin-top: 0.4rem; padding-top: 0.2rem; border-top: 1px solid #333;">
+                        <?php foreach ($post_tags as $tag): ?>
+                            <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php endwhile; ?>
     </div>
@@ -578,12 +617,8 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
         <h3>Reply to Thread</h3>
         <?php if (isset($_SESSION['user_id'])): ?>
             <?php
-            // Check if current user is admin for display
-            $current_user_admin_stmt = $db->prepare('SELECT is_admin FROM users WHERE id = :user_id');
-            $current_user_admin_stmt->bindValue(':user_id', $_SESSION['user_id'], SQLITE3_INTEGER);
-            $current_user_admin_result = $current_user_admin_stmt->execute();
-            $current_user_admin_data = $current_user_admin_result->fetchArray(SQLITE3_ASSOC);
-            $current_user_is_admin = $current_user_admin_data && $current_user_admin_data['is_admin'];
+            // Check if current user is admin for display using admin_config.php
+            $current_user_is_admin = isCurrentUserAdmin($db, $_SESSION['user_id']);
             ?>
             <p>Posting as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong>
             <?php if ($current_user_is_admin): ?>
@@ -601,6 +636,8 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
         
         <form method="post">
             <textarea name="content" placeholder="Write your reply here..." required></textarea>
+            <input name="tags" type="text" placeholder="Tags (optional, comma-separated)" class="create-post-tags-input" style="margin-top: 1rem;">
+            <p style="color: #888; font-size: 0.8rem; margin: 0.5rem 0 0 0;">Add tags to categorize your reply (optional).</p>
             <br>
             <button type="submit">Post Reply</button>
         </form>
