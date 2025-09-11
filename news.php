@@ -7,7 +7,7 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zyric News</title>
+  <title>Xenon | News</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>

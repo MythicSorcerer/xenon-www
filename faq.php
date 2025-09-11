@@ -7,7 +7,7 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Frequently Asked Questions</title>
+  <title>Xenon | FAQ</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
