@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
 ### 🕹️ What version of Minecraft does Xenon support?
-We currently support Minecraft Java Edition 1.21.6 only (I think).
+We currently support Minecraft Java Edition 1.21.8 only.
 
 ### 🔗 How do I join the server?
 Open Minecraft, go to Multiplayer, click "Add Server", and use `xenon.hopto.org` as the address.
@@ -10,16 +10,12 @@ Open Minecraft, go to Multiplayer, click "Add Server", and use `xenon.hopto.org`
 Yes! Xenon is completely free. Donations are optional because there isn't even a place to donate.
 
 ### 🚀 What makes Xenon different?
-We offer futuristic gameplay with custom PvP mechanics, a tech-based economy, and unique world generation.
+We have lifesteal, allowing people to steal each other's hearts and ban them when they run out of hearts.
 
 ### 📧 How do I contact the staff?
-Use the contact form on our website (coming soon) or post in the forum with your question.
+Post in the forum with your question, or use the contact information under support
 
-### 😅 Is this false advertising
-Yes, probably
+### 💀 I got banned, what can I do?
+You can get someone to craft a revive beacon to come back, or wait for the next server reset.
 
-### 😐 Is this a scam
-Technically..... uhhhh..........
-
-I don't think I'm going to answer that
 
