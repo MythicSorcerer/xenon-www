@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
 ### 🕹️ What version of Minecraft does Xenon support?
-We currently support Minecraft Java Edition 1.21.8 only.
+We currently only support 1.21.9 at the moment.
 
 ### 🔗 How do I join the server?
 Open Minecraft, go to Multiplayer, click "Add Server", and use `xenon.hopto.org` as the address.
@@ -15,7 +15,5 @@ We have lifesteal, allowing people to steal each other's hearts and ban them whe
 ### 📧 How do I contact the staff?
 Post in the forum with your question, or use the contact information under support
 
-### 💀 I got banned, what can I do?
-You can get someone to craft a revive beacon to come back, or wait for the next server reset.
-
-
+### 😡 You freaking screwed up so badly! What do I do?
+Post in the forum or use the email under support.  
