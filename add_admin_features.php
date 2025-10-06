@@ -35,7 +35,7 @@ try {
 }
 
 // Set admin privileges for specified usernames
-$admin_usernames = ['admin', 'modmaster'];
+$admin_usernames = ['admin', 'mod', 'modmaster'];
 
 foreach ($admin_usernames as $username) {
     $stmt = $db->prepare('UPDATE users SET is_admin = 1 WHERE username = :username');
