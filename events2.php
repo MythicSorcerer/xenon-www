@@ -11,6 +11,24 @@ rsort($eventFiles); // Show most recent events first (by filename)
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body {
+      position: relative;
+    }
+
+    #headers {
+      position: relative;
+      z-index: 10;
+    }
+
     .events-container {
       max-width: 900px;
       margin: 4rem auto;
