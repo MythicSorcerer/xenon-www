@@ -11,37 +11,62 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body {
+      position: relative;
+    }
+
+    #headers {
+      position: relative;
+      z-index: 10;
+    }
+
     .news-container {
       max-width: 900px;
       margin: 4rem auto;
       padding: 0 1rem;
+      position: relative;
+      z-index: 10;
     }
-
     .news-container h2 {
       text-align: center;
       margin-bottom: 2rem;
+      text-shadow: 0 0 10px #00ffe1;
     }
-
     .article {
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.9);
       border: 1px solid #00ffe1;
       border-radius: 10px;
       padding: 2rem;
       margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
     }
-
     .article h1, .article h2, .article h3 {
       color: #ffffff;
     }
-
     .article p {
       color: #ccc;
+    }
+
+    footer {
+      position: relative;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+  
   <div id="headers"></div>
-
   <main class="news-container">
     <h2>Latest News</h2>
     <div id="news-articles">
@@ -52,11 +77,9 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
       <?php endforeach; ?>
     </div>
   </main>
-
   <footer>
     © 2025 Xenon Minecraft Server. All Rights Reserved.
   </footer>
-
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     async function loadHeaders() {
@@ -64,7 +87,6 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
       const html = await res.text();
       document.getElementById('headers').innerHTML = html;
     }
-
     async function renderArticles() {
       const articles = document.querySelectorAll('[data-md]');
       for (const div of articles) {
@@ -78,10 +100,10 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
         }
       }
     }
-
     loadHeaders();
     renderArticles();
   </script>
+
+  <script src="bg-animation.js"></script>
 </body>
 </html>
-

@@ -33,41 +33,6 @@
     header h1 {
       animation: glow 2s ease-in-out infinite alternate;
     }
-
-    /* Click to copy functionality */
-    .ip-box {
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .ip-box:hover {
-      box-shadow: 0 0 20px rgba(0, 255, 225, 0.3);
-    }
-
-    .ip-box code {
-      user-select: all;
-    }
-
-    .copy-hint {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 0.85rem;
-      color: #00ffe1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .ip-box:hover .copy-hint {
-      opacity: 0.7;
-    }
-
-    .copy-hint.copied {
-      opacity: 1 !important;
-      color: #00ff88;
-    }
   </style>
 </head>
 <body>
@@ -81,10 +46,9 @@
     <p>Season 1 - SMP/Lifesteal</p>
   </header>
   
-  <div class="ip-box" onclick="copyIP()">
-    <span class="copy-hint" id="copyHint">📋 Click to copy</span>
+  <div class="ip-box">
     <p>Connect Now:</p>
-    <code id="serverIP">xenon.hopto.org</code>
+    <code>xenon.hopto.org</code>
   </div>
   
   <section class="features">
@@ -117,26 +81,6 @@
       document.getElementById('headers').innerHTML = text;
     }
     loadHeaders();
-
-    // Copy IP functionality
-    let copyTimeout;
-    function copyIP() {
-      const ip = document.getElementById('serverIP').textContent;
-      const hint = document.getElementById('copyHint');
-      
-      navigator.clipboard.writeText(ip).then(() => {
-        hint.textContent = '✓ Copied to clipboard!';
-        hint.classList.add('copied');
-        
-        clearTimeout(copyTimeout);
-        copyTimeout = setTimeout(() => {
-          hint.textContent = '📋 Click to copy';
-          hint.classList.remove('copied');
-        }, 4000);
-      }).catch(err => {
-        console.error('Failed to copy:', err);
-      });
-    }
   </script>
 
   <script>
