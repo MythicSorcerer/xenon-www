@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'admin_config.php';
-require_once 'db_init.php';
+require_once '/debug/admin_config.php';
+require_once '/debug/db_init.php';
 
 // Check if user is admin
 if (!isset($_SESSION['user_id']) || !isCurrentUserAdmin(getDatabaseConnection(), $_SESSION['user_id'])) {
