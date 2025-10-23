@@ -1,5 +1,5 @@
 <?php
-$articleFiles = glob("articles/*.md");
+$articleFiles = glob("news-md/*.md");
 rsort($articleFiles); // Reverse alphabetical order (most recent first)
 ?>
 <!DOCTYPE html>

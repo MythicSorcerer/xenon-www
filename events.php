@@ -1,5 +1,5 @@
 <?php
-$eventFiles = glob("events/*.md");
+$eventFiles = glob("events-md/*.md");
 rsort($eventFiles); // Show most recent events first (by filename)
 ?>
 <!DOCTYPE html>
