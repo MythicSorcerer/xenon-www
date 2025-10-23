@@ -110,13 +110,12 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
 </div>
 
 <nav>
-  <a href="index.html">Info</a>
-  <a href="news.php">News</a>
-  <a href="events.php">Events</a>
-  <a href="forum.php">Forum</a>
-  <!-- <a href="search.php">Search</a> -->
-  <a href="faq.php">FAQ</a>
-  <a href="support.php">Support</a>
-  <a href="rules.php">Rules</a>
-  <a href="status.php">Server Status</a>
+  <a href="/index.html">Info</a>
+  <a href="/news.php">News</a>
+  <a href="/events.php">Events</a>
+  <a href="/forum.php">Forum</a>
+  <a href="/faq/">FAQ</a>
+  <a href="/support.php">Support</a>
+  <a href="/rules.php">Rules</a>
+  <a href="/status.php">Server Status</a>
 </nav>
