@@ -26,12 +26,8 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/loadHeaders.js"></script>
   <script>
-    async function loadHeaders() {
-      const res = await fetch('/headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
 
     // Load and render the rules markdown from PHP
     document.addEventListener("DOMContentLoaded", () => {

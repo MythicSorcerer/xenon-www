@@ -342,14 +342,8 @@ if ($is_logged_in) {
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum - Settings
     </footer>
-
+    <script src="/loadHeaders.js"></script>
     <script>
-        async function loadHeaders() {
-            const res = await fetch('headers.php');
-            const text = await res.text();
-            document.getElementById('headers').innerHTML = text;
-        }
-        loadHeaders();
         
         // Handle font option selection
         document.querySelectorAll('.font-option').forEach(option => {

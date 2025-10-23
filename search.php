@@ -327,15 +327,8 @@ if (!empty($search_query)) {
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum
     </footer>
-
+    <script src="/loadHeaders.js"></script>
     <script>
-        async function loadHeaders() {
-            const res = await fetch('headers.php');
-            const text = await res.text();
-            document.getElementById('headers').innerHTML = text;
-        }
-        loadHeaders();
-        
         // Handle filter clicks
         document.querySelectorAll('.search-filter').forEach(filter => {
             filter.addEventListener('click', function() {

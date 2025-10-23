@@ -9,7 +9,7 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Xenon | Support</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div id="headers"></div>
@@ -26,19 +26,12 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/loadHeaders.js"></script>
   <script>
-    async function loadHeaders() {
-      const res = await fetch('headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
       const md = <?php echo json_encode($markdownText); ?>;
       document.getElementById('faq-content').innerHTML = marked.parse(md);
     });
-
-    loadHeaders();
   </script>
 </body>
 </html>

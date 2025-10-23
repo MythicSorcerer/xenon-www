@@ -49,14 +49,9 @@
   <footer>
     © 2025 Xenon Minecraft Server. All Rights Reserved.
   </footer>
+<script src="/loadHeaders.js"></script>
 
   <script>
-    async function loadHeaders() {
-      const res = await fetch('headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
-
     async function checkServerStatus() {
       try {
         const response = await fetch("https://api.mcsrvstat.us/2/xenon.hopto.org");

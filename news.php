@@ -81,12 +81,8 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
     © 2025 Xenon Minecraft Server. All Rights Reserved.
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/loadHeaders.js"></script>
   <script>
-    async function loadHeaders() {
-      const res = await fetch('headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
     async function renderArticles() {
       const articles = document.querySelectorAll('[data-md]');
       for (const div of articles) {
@@ -100,7 +96,6 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
         }
       }
     }
-    loadHeaders();
     renderArticles();
   </script>
 

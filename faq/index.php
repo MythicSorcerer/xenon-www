@@ -28,13 +28,8 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/loadHeaders.js"></script>
   <script>
-    async function loadHeaders() {
-      const res = await fetch('../headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
       const md = <?php echo json_encode($markdownText); ?>;
       document.getElementById('faq-content').innerHTML = marked.parse(md);
