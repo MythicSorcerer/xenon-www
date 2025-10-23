@@ -230,14 +230,8 @@ if (isset($_GET['logout'])) {
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum
     </footer>
-
+    <script src="/loadHeaders.js"></script>
     <script>
-        async function loadHeaders() {
-            const res = await fetch('headers.php');
-            const text = await res.text();
-            document.getElementById('headers').innerHTML = text;
-        }
-        loadHeaders();
 
         function toggleForms() {
             const loginForm = document.getElementById('login-form');

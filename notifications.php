@@ -230,14 +230,6 @@ $unread_count = $unread_result->fetchArray(SQLITE3_ASSOC)['unread_count'];
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum
     </footer>
-
-    <script>
-        async function loadHeaders() {
-            const res = await fetch('headers.php');
-            const text = await res.text();
-            document.getElementById('headers').innerHTML = text;
-        }
-        loadHeaders();
-    </script>
+    <script src="/loadHeaders.js"></script>
 </body>
 </html>
