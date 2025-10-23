@@ -11,10 +11,30 @@ rsort($eventFiles); // Show most recent events first (by filename)
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body {
+      position: relative;
+    }
+
+    #headers {
+      position: relative;
+      z-index: 10;
+    }
+
     .events-container {
       max-width: 900px;
       margin: 4rem auto;
       padding: 0 1rem;
+      position: relative;
+      z-index: 10;
     }
 
     .events-container h2 {
@@ -23,7 +43,7 @@ rsort($eventFiles); // Show most recent events first (by filename)
     }
 
     .event {
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.9);
       border: 1px solid #00ffe1;
       border-radius: 10px;
       padding: 2rem;
@@ -37,9 +57,15 @@ rsort($eventFiles); // Show most recent events first (by filename)
     .event p {
       color: #ccc;
     }
+    footer {
+      position: relative;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
+  
+  <canvas id="bgCanvas"></canvas>
   <div id="headers"></div>
 
   <main class="events-container">
@@ -82,6 +108,8 @@ rsort($eventFiles); // Show most recent events first (by filename)
     loadHeaders();
     renderEvents();
   </script>
+
+  <script src="bg-animation.js"></script>
 </body>
 </html>
 

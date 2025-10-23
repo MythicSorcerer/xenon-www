@@ -11,6 +11,8 @@ Always update git after a change
 - Since every page needs to fetch headers, merge into a fetch headers js file
 - Merge fetch headers js with animations js to global.js
 - Footer background should be all black
+- Merge news and events css, they're pretty much the same
+- merge faq/support/rules css
 
 - Add animations on/off to settings
 - Fix settings theme selector deselects font after selecting color
