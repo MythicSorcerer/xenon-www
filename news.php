@@ -43,12 +43,12 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
       text-shadow: 0 0 10px #00ffe1;
     }
     .article {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.5);
       border: 1px solid #00ffe1;
       border-radius: 10px;
       padding: 2rem;
       margin-bottom: 2rem;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(5px);
     }
     .article h1, .article h2, .article h3 {
       color: #ffffff;

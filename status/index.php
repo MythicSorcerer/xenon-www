@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Xenon | Server Status</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <style>
     .status-container {
       max-width: 600px;
       margin: 5rem auto;
       text-align: center;
       padding: 2rem;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.5);
       border: 1px solid #00ffe1;
       border-radius: 12px;
+      backdrop-filter: blur(5px);
     }
     .status-title {
       font-size: 2rem;
@@ -37,7 +38,7 @@
 </head>
 <body>
   <div id="headers"></div>
-
+   <canvas id="bgCanvas"></canvas>
   <main>
     <div class="status-container">
       <div class="status-title">Minecraft Server Status</div>
@@ -74,10 +75,11 @@
       }
     }
 
-    loadHeaders();
     checkServerStatus();
     setInterval(checkServerStatus, 5000);
   </script>
+   <script src="/bg-animation.js"></script>
+
 </body>
 </html>
 

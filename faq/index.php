@@ -12,6 +12,7 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
   <div id="headers"></div>
 
   <main class="faq-container">
@@ -34,9 +35,8 @@ $markdownText = file_exists($markdownFile) ? file_get_contents($markdownFile) : 
       const md = <?php echo json_encode($markdownText); ?>;
       document.getElementById('faq-content').innerHTML = marked.parse(md);
     });
-
-    loadHeaders();
   </script>
+  <script src="/bg-animation.js"></script>
 </body>
 </html>
 

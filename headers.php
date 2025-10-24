@@ -121,5 +121,5 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
   <a href="/faq/">FAQ</a>
   <a href="/support/">Support</a>
   <a href="/rules/">Rules</a>
-  <a href="/status.php">Server Status</a>
+  <a href="/status/">Server Status</a>
 </nav>

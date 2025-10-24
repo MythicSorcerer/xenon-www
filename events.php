@@ -43,11 +43,12 @@ rsort($eventFiles); // Show most recent events first (by filename)
     }
 
     .event {
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.5);
       border: 1px solid #00ffe1;
-      border-radius: 10px;
+      border-radius: 5px;
       padding: 2rem;
       margin-bottom: 2rem;
+      backdrop-filter: blur(5px);
     }
 
     .event h1, .event h2, .event h3 {

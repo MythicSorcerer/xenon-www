@@ -189,10 +189,11 @@ color: #00ff88;
 }
 
 .faq-content {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid #00ffe1;
   border-radius: 10px;
   padding: 2rem;
+  backdrop-filter: blur(5px);
 }
 
 .faq-content h2 {
@@ -236,6 +237,7 @@ section.features {
   border-radius: 10px;
   text-align: center;
   transition: transform 0.3s ease;
+  backdrop-filter: blur(1.5px);
 }
 
 .feature:hover {
@@ -292,3 +294,36 @@ input[type="text"]:focus {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ========== 
+   UNSORTED CLEAN UP LATER
+   ==================== */
+
+ #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body {
+      position: relative;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffe1, 0 0 20px #00ffe1;
+      }
+      to {
+        text-shadow: 0 0 20px #00ffe1, 0 0 30px #00ffe1, 0 0 40px #00ffe1;
+      }
+    }
+
+    header h1 {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
