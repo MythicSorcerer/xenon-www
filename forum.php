@@ -127,6 +127,7 @@ try {
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<canvas id="bgCanvas"></canvas>
   <!-- Headers will be loaded here -->
   <div id="headers"></div>
   
@@ -213,7 +214,7 @@ try {
     loadHeaders();
   </script>
 
-
+<script src="bg-animation.js"></script>
 </body>
 </html>
 

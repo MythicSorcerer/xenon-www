@@ -331,6 +331,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
             padding: 1.5rem;
             margin: 2rem auto;
             max-width: 800px;
+            backdrop-filter: blur(5px);
         }
         .thread-title {
             color: #00ffe1;
@@ -351,6 +352,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1rem;
+            backdrop-filter: blur(5px);
         }
         .post-header {
             display: flex;
@@ -380,6 +382,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
             padding: 1.5rem;
             margin: 2rem auto;
             max-width: 800px;
+            backdrop-filter: blur(5px);
         }
         .reply-form h3 {
             color: #00ffe1;
@@ -474,6 +477,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
     </style>
 </head>
 <body>
+ <canvas id="bgCanvas"></canvas>
     <!-- Headers will be loaded here -->
     <div id="headers"></div>
     
@@ -648,5 +652,6 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
     </footer>
 
     <script src = "/loadHeaders.js"></script>
+    <script src="bg-animation.js"></script>
 </body>
 </html>

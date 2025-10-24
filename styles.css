@@ -162,6 +162,7 @@ color: #00ff88;
   box-shadow: 0 0 15px rgba(0, 255, 225, 0.25);
   text-align: center;
   transition: box-shadow 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .new-thread-box:hover {
