@@ -2,7 +2,7 @@
 session_start();
 
 // Include database initialization
-require_once 'db_init.php';
+require_once 'debug/db_init.php';
 
 // Initialize database with automatic table creation
 $db = getDatabaseConnection();

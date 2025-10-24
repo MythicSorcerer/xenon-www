@@ -1,8 +1,11 @@
-
 <?php
-session_start();
-require_once 'admin_config.php';
-require_once 'db_init.php';
+/*
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+*/
+
+require_once 'debug/admin_config.php';
+require_once 'debug/db_init.php';
 
 // Initialize database with automatic table creation
 $db = getDatabaseConnection();
