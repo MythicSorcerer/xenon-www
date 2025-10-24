@@ -2,8 +2,8 @@
 session_start();
 
 // Include admin configuration and database initialization
-require_once 'debug/admin_config.php';
-require_once 'debug/db_init.php';
+require_once '../debug/admin_config.php';
+require_once '../debug/db_init.php';
 
 // Initialize database with automatic table creation
 $db = getDatabaseConnection();

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'debug/admin_config.php';
-require_once 'debug/db_init.php';
+require_once '../debug/admin_config.php';
+require_once '../debug/db_init.php';
 
 // Initialize database with automatic table creation
 $db = getDatabaseConnection();
@@ -124,7 +124,7 @@ try {
 <head>
   <title>Xenon | Forum</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
@@ -187,7 +187,7 @@ try {
       ?>
       <div class="feature">
         <h3>
-          <a href="thread.php?id=<?= $row['id'] ?>" style="color:#00ffe1">
+          <a href="../thread/?id=<?= $row['id'] ?>" style="color:#00ffe1">
             <?= htmlspecialchars($row['title']) ?>
           </a>
         </h3>
@@ -205,16 +205,8 @@ try {
     &copy; <?= date("Y") ?> Xenon Forum
   </footer>
 
-  <script>
-    async function loadHeaders() {
-      const res = await fetch('headers.php');
-      const text = await res.text();
-      document.getElementById('headers').innerHTML = text;
-    }
-    loadHeaders();
-  </script>
-
-<script src="bg-animation.js"></script>
+  <script src="/loadHeaders.js"></script>
+  <script src="/bg-animation.js"></script>
 </body>
 </html>
 
