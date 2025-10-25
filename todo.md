@@ -12,7 +12,7 @@ Always update git after a change
 - Merge news and events css, they're pretty much the same
 - merge faq content - article (news) - event (events) into info box
 - merge faq container - events container - article container into info container 
-
+- Fix H1 title glow
 
 - Add animations on/off to settings
 - Add Opacity settings (0.5 opacity + 5px blur vs 1.0 opacity) (transulcent vs opaque)

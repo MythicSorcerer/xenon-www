@@ -84,7 +84,7 @@ header h1 {
   margin: 0;
   letter-spacing: 4px;
   text-shadow: 0 0 10px #00ffe1;
-  animation: glow 2s ease-in-out infinite alternate;
+  /*animation: glow 2s ease-in-out infinite alternate;*/
 }
 
 header p {
@@ -324,7 +324,7 @@ input[type="text"]:focus {
       }
     }
 
-    header h1 {
+    /*header h1 {
       animation: glow 2s ease-in-out infinite alternate;
-    }
+    }*/
 
