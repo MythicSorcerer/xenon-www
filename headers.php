@@ -114,7 +114,7 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
 </div>
 
 <nav>
-  <a href="/index.html">Info</a>
+  <a href="/info/">Info</a>
   <a href="/news/">News</a>
   <a href="/events/">Events</a>
   <a href="/forum/">Forum</a>
