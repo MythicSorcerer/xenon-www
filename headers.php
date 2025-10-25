@@ -117,7 +117,7 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
   <a href="/index.html">Info</a>
   <a href="/news.php">News</a>
   <a href="/events.php">Events</a>
-  <a href="/forum.php">Forum</a>
+  <a href="/forum/">Forum</a>
   <a href="/faq/">FAQ</a>
   <a href="/support/">Support</a>
   <a href="/rules/">Rules</a>

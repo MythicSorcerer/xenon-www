@@ -72,7 +72,7 @@
     <div class="nav-bar">
         <button onclick="location.href='/info/news.php'">News</button>
         <button onclick="location.href='/info/events.php'">Events</button>
-        <button onclick="location.href='/social/forum.php'">Forum</button>
+        <button onclick="location.href='/social/'">Forum</button>
         <button onclick="location.href='/info/FAQ.html'">FAQ</button>
         <button onclick="location.href='/social/support.php'">Support</button>
         <button onclick="location.href='/info/rules.html'">Rules</button>

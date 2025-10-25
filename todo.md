@@ -1,6 +1,8 @@
 
 # TODO LIST
 Always update git after a change
+- Fix server status not using proper headers
+
 - Split forum and whatever's left folder for organization
 - Every page has an animated background
 - All css should be in styles.css

@@ -177,7 +177,7 @@ $unread_count = $unread_result->fetchArray(SQLITE3_ASSOC)['unread_count'];
     </header>
 
     <div style="text-align: center;">
-        <a href="forum.php" class="back-link">← Back to Forum</a>
+        <a href="/forum/" class="back-link">← Back to Forum</a>
     </div>
 
     <div class="notifications-container">

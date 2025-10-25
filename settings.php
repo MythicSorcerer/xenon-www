@@ -335,7 +335,7 @@ if ($is_logged_in) {
         </div>
 
         <div style="text-align: center;">
-            <a href="forum.php" class="back-link">← Back to Forum</a>
+            <a href="/forum/" class="back-link">← Back to Forum</a>
         </div>
     </div>
 

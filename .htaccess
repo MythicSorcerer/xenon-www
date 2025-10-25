@@ -57,7 +57,7 @@ RewriteEngine On
 # Redirect to forum.php if accessing root
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^forum/?$ forum.php [L]
+RewriteRule ^forum/?$ /forum/ [L]
 
 # Security headers
 Header always set X-Content-Type-Options nosniff

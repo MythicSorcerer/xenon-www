@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         if ($stmt->execute()) {
             $_SESSION['user_id'] = $db->lastInsertRowID();
             $_SESSION['username'] = $username;
-            header('Location: forum.php');
+            header('Location: /forum/');
             exit;
         } else {
             $errors[] = "Registration failed. Please try again.";
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header('Location: forum.php');
+        header('Location: /forum/');
         exit;
     } else {
         $login_error = "Invalid username or password.";
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header('Location: forum.php');
+    header('Location: /forum/');
     exit;
 }
 ?>
