@@ -95,6 +95,7 @@ header p {
 
 /* Footer */
 footer {
+  background: #000;
   text-align: center;
   padding: 2rem;
   color: #666;

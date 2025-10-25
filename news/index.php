@@ -1,15 +1,15 @@
 <?php
-$eventFiles = glob("events-md/*.md");
-rsort($eventFiles); // Show most recent events first (by filename)
+$articleFiles = glob("../news-md/*.md");
+rsort($articleFiles); // Reverse alphabetical order (most recent first)
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Xenon | Events</title>
+  <title>Xenon | News</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
   <style>
     #bgCanvas {
       position: fixed;
@@ -20,6 +20,7 @@ rsort($eventFiles); // Show most recent events first (by filename)
       z-index: 0;
       pointer-events: none;
     }
+
     body {
       position: relative;
     }
@@ -29,35 +30,33 @@ rsort($eventFiles); // Show most recent events first (by filename)
       z-index: 10;
     }
 
-    .events-container {
+    .news-container {
       max-width: 900px;
       margin: 4rem auto;
       padding: 0 1rem;
       position: relative;
       z-index: 10;
     }
-
-    .events-container h2 {
+    .news-container h2 {
       text-align: center;
       margin-bottom: 2rem;
+      text-shadow: 0 0 10px #00ffe1;
     }
-
-    .event {
+    .article {
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid #00ffe1;
-      border-radius: 5px;
+      border-radius: 10px;
       padding: 2rem;
       margin-bottom: 2rem;
       backdrop-filter: blur(5px);
     }
-
-    .event h1, .event h2, .event h3 {
+    .article h1, .article h2, .article h3 {
       color: #ffffff;
     }
-
-    .event p {
+    .article p {
       color: #ccc;
     }
+
     footer {
       position: relative;
       z-index: 10;
@@ -65,52 +64,41 @@ rsort($eventFiles); // Show most recent events first (by filename)
   </style>
 </head>
 <body>
-  
   <canvas id="bgCanvas"></canvas>
+  
   <div id="headers"></div>
-
-  <main class="events-container">
-    <h2>Upcoming & Past Events</h2>
-    <div id="event-list">
-      <?php foreach ($eventFiles as $file): ?>
-        <div class="event" data-md="<?php echo htmlspecialchars($file); ?>">
-          <noscript><p>Enable JavaScript to view event details.</p></noscript>
+  <main class="news-container">
+    <h2>Latest News</h2>
+    <div id="news-articles">
+      <?php foreach ($articleFiles as $file): ?>
+        <div class="article" data-md="<?php echo htmlspecialchars($file); ?>">
+          <noscript><p>Enable JavaScript to read this article.</p></noscript>
         </div>
       <?php endforeach; ?>
     </div>
   </main>
-
   <footer>
     © 2025 Xenon Minecraft Server. All Rights Reserved.
   </footer>
-
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/loadHeaders.js"></script>
   <script>
-    async function loadHeaders() {
-      const res = await fetch('headers.php');
-      const html = await res.text();
-      document.getElementById('headers').innerHTML = html;
-    }
-
-    async function renderEvents() {
-      const events = document.querySelectorAll('[data-md]');
-      for (const div of events) {
+    async function renderArticles() {
+      const articles = document.querySelectorAll('[data-md]');
+      for (const div of articles) {
         const file = div.getAttribute('data-md');
         try {
           const res = await fetch(file);
           const text = await res.text();
           div.innerHTML = marked.parse(text);
         } catch (err) {
-          div.innerHTML = "<p style='color:red;'>Failed to load event: " + file + "</p>";
+          div.innerHTML = "<p style='color:red;'>Failed to load article: " + file + "</p>";
         }
       }
     }
-
-    loadHeaders();
-    renderEvents();
+    renderArticles();
   </script>
 
-  <script src="bg-animation.js"></script>
+  <script src="/bg-animation.js"></script>
 </body>
 </html>
-

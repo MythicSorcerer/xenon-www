@@ -1,7 +1,10 @@
 # Support
 
 ## How to Contact Us
-You can reach out to us via email at early.mousers.8@icloud.com (yes it's sus) or through our (non-existing) Discord server.
+You can reach out to us 
+- via email at early.mousers.8@icloud.com (yes it's sus)
+- through our (non-existing) Discord server.
+- Drop a comment in the forum
 
 ## Troubleshooting
 - Make sure your game is updated to the latest version.
