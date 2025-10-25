@@ -211,7 +211,7 @@ $unread_count = $unread_result->fetchArray(SQLITE3_ASSOC)['unread_count'];
                     <?= date('M j, Y \a\t g:i A', strtotime($notification['created_at'])) ?>
                 </div>
                 <div class="notification-actions">
-                    <a href="thread.php?id=<?= $notification['thread_id'] ?>#post-<?= $notification['post_id'] ?>">View Reply</a>
+                    <a href="/thread/?id=<?= $notification['thread_id'] ?>#post-<?= $notification['post_id'] ?>">View Reply</a>
                     <?php if (!$notification['is_read']): ?>
                         <a href="notifications.php?mark_read=<?= $notification['id'] ?>">Mark Read</a>
                     <?php endif; ?>

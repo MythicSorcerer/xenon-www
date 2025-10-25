@@ -95,7 +95,7 @@ try {
     ?>
       <div class="feature">
         <h3>
-          <a href="thread.php?id=<?= $row['id'] ?>" style="color:#00ffe1">
+          <a href="/thread/?id=<?= $row['id'] ?>" style="color:#00ffe1">
             <?= htmlspecialchars($row['title']) ?>
           </a>
         </h3>

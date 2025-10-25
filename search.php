@@ -268,7 +268,7 @@ if (!empty($search_query)) {
                             <?php if ($result['result_type'] === 'thread'): ?>
                                 <div class="result-title">
                                     <span class="result-type">THREAD</span>
-                                    <a href="thread.php?id=<?= $result['id'] ?>">
+                                    <a href="/thread/?id=<?= $result['id'] ?>">
                                         <?= htmlspecialchars($result['title']) ?>
                                     </a>
                                 </div>
@@ -292,7 +292,7 @@ if (!empty($search_query)) {
                             <?php else: ?>
                                 <div class="result-title">
                                     <span class="result-type">POST</span>
-                                    <a href="thread.php?id=<?= $result['thread_id'] ?>#post-<?= $result['id'] ?>">
+                                    <a href="/thread/?id=<?= $result['thread_id'] ?>#post-<?= $result['id'] ?>">
                                         Re: <?= htmlspecialchars($result['thread_title']) ?>
                                     </a>
                                 </div>

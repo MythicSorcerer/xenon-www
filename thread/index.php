@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
                 // Commit the transaction
                 $db->exec('COMMIT');
                 
-                header('Location: thread.php?id=' . $thread_id);
+                header('Location: /thread/?id=' . $thread_id);
                 exit;
             } catch (Exception $e) {
                 // Rollback on error
@@ -301,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['content'])) {
                 error_log("Notification creation error: " . $e->getMessage());
             }
             
-            header('Location: thread.php?id=' . $thread_id);
+            header('Location: /thread/?id=' . $thread_id);
             exit;
         } catch (Exception $e) {
             error_log("Thread post error: " . $e->getMessage());
