@@ -11,7 +11,7 @@ $db = getDatabaseConnection();
 $thread_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($thread_id <= 0) {
-    header('Location: forum.php');
+    header('Location: /forum/');
     exit;
 }
 
@@ -22,7 +22,7 @@ $result = $stmt->execute();
 $thread = $result->fetchArray(SQLITE3_ASSOC);
 
 if (!$thread) {
-    header('Location: forum.php');
+    header('Location: /forum/');
     exit;
 }
 
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_thread'])) {
             // Commit the transaction
             $db->exec('COMMIT');
             
-            header('Location: forum.php');
+            header('Location: /forum/');
             exit;
         } catch (Exception $e) {
             // Rollback on error
@@ -322,7 +322,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
 <head>
     <title><?= htmlspecialchars($thread['title']) ?> - Xenon Forum</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <style>
         .thread-header {
             background: rgba(0, 255, 225, 0.1);
@@ -487,7 +487,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
     </header>
 
     <div style="text-align: center;">
-        <a href="forum.php" class="back-link">← Back to Forum</a>
+        <a href="/forum/" class="back-link">← Back to Forum</a>
     </div>
 
     <div class="thread-header">
@@ -652,6 +652,6 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
     </footer>
 
     <script src = "/loadHeaders.js"></script>
-    <script src="bg-animation.js"></script>
+    <script src="/bg-animation.js"></script>
 </body>
 </html>

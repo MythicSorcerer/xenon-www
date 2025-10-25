@@ -4,7 +4,8 @@
 
 body {
   margin: 0;
-  background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 100%);
+  /*background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 100%);*/
+  background-color: #111;
   font-family: 'Orbitron', sans-serif;
   color: #00ffe1;
   overflow-x: hidden;
@@ -69,22 +70,22 @@ header {
   background: linear-gradient(to bottom, #12121c 0%, transparent 100%);
 }
 
-/*@keyframes glow {
-      from {
-        text-shadow: 0 0 10px #00ffe1, 0 0 20px #00ffe1;
-      }
-      to {
-        text-shadow: 0 0 20px #00ffe1, 0 0 30px #00ffe1, 0 0 40px #00ffe1;
-      }
-    }*/
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(0, 255, 225, 0.4);
+  }
+  to {
+    text-shadow: 0 0 15px rgba(0, 255, 225, 0.6); /* Edit third and last numbers if too bight or dim */
+  }
+}
 
 
 header h1 {
   font-size: 4rem;
   margin: 0;
   letter-spacing: 4px;
-  text-shadow: 0 0 10px #00ffe1;
-  /*animation: glow 2s ease-in-out infinite alternate;*/
+  text-shadow: none;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
 header p {
@@ -315,16 +316,4 @@ input[type="text"]:focus {
       position: relative;
     }
 
-    /*@keyframes glow {
-      from {
-        text-shadow: 0 0 10px #00ffe1, 0 0 20px #00ffe1;
-      }
-      to {
-        text-shadow: 0 0 20px #00ffe1, 0 0 30px #00ffe1, 0 0 40px #00ffe1;
-      }
-    }*/
-
-    /*header h1 {
-      animation: glow 2s ease-in-out infinite alternate;
-    }*/
 
