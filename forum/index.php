@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title'])) {
                 }
             }
             
-            header('Location: forum.php');
+            header('Location: /forum/');
             exit;
         } catch (Exception $e) {
             // Log error or display user-friendly message
@@ -136,70 +136,72 @@ try {
     <p>Discuss and Share</p>
   </header>
 
-  <!-- Quick Search Bar -->
-  <div style="max-width: 800px; margin: 0.5rem auto; padding: 0 1rem;">
-    <form method="get" action="search.php" style="display: flex; flex-direction: column; gap: 0.3rem;">
-      <div style="display: flex; gap: 0.5rem;">
-        <input name="q" type="text" placeholder="Quick search threads and posts..." class="create-post-title-input" style="flex: 1;">
-        <button type="submit" style="padding: 0.8rem 1.5rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; transition: background 0.3s;">Search</button>
-      </div>
-      <div style="text-align: left;">
-        <a href="search.php" style="color: #00ffe1; text-decoration: none; font-size: 0.75rem; transition: background 0.3s;">Advanced Search</a>
-      </div>
-    </form>
-  </div>
+  <main>
+    <!-- Quick Search Bar -->
+    <div style="max-width: 800px; margin: 0.5rem auto; padding: 0 1rem;">
+      <form method="get" action="search.php" style="display: flex; flex-direction: column; gap: 0.3rem;">
+        <div style="display: flex; gap: 0.5rem;">
+          <input name="q" type="text" placeholder="Quick search threads and posts..." class="create-post-title-input" style="flex: 1;">
+          <button type="submit" style="padding: 0.8rem 1.5rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; transition: background 0.3s;">Search</button>
+        </div>
+        <div style="text-align: left;">
+          <a href="search.php" style="color: #00ffe1; text-decoration: none; font-size: 0.75rem; transition: background 0.3s;">Advanced Search</a>
+        </div>
+      </form>
+    </div>
 
-  <div class="new-thread-box">
-    <?php if (isset($_SESSION['user_id'])): ?>
-      <?php
-      // Check if current user is admin for display
-      $forum_is_admin = is_admin($_SESSION['username']);
-      ?>
-      <p style="color: #ccc; margin-bottom: 1rem;">Creating thread as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong>
-      <?php if ($forum_is_admin): ?>
-        <span style="background: #ff6b6b; color: white; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">ADMIN</span>
-        <span style="color: #4f4; font-size: 0.8rem; margin-left: 0.5rem;">(No cooldown)</span>
-      <?php endif; ?>
-      </p>
-    <?php else: ?>
-      <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
-    <?php endif; ?>
-    
-    <?php if (!empty($cooldown_error)): ?>
-      <div style="color: #ff4444; background: rgba(255, 68, 68, 0.1); border: 1px solid #ff4444; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; text-align: center;">
-        <?= htmlspecialchars($cooldown_error) ?>
-      </div>
-    <?php endif; ?>
-    
-    <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">
-      <input name="title" type="text" placeholder="New thread title" required class="create-post-title-input">
-      <input name="tags" type="text" placeholder="Tags (comma-separated, e.g. gaming, discussion, help)" class="create-post-tags-input">
-      <p style="color: #888; font-size: 0.8rem; margin: -0.5rem 0 0 0;">Add tags to help others find your thread. Separate multiple tags with commas.</p>
-      <button type="submit" style="width: 200px; padding: 1rem 2rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; align-self: center; transition: background 0.3s;">Create Thread</button>
-    </form>
-  </div>
-
-  <section class="features">
-    <?php while ($row = $threads->fetchArray(SQLITE3_ASSOC)): ?>
-      <?php
-      // Check if thread author is admin
-      $thread_author_is_admin = is_admin($row['username']);
-      ?>
-      <div class="feature">
-        <h3>
-          <a href="../thread/?id=<?= $row['id'] ?>" style="color:#00ffe1">
-            <?= htmlspecialchars($row['title']) ?>
-          </a>
-        </h3>
-        <p>Started by <strong><?= htmlspecialchars($row['username']) ?></strong>
-        <?php if ($thread_author_is_admin): ?>
+    <div class="new-thread-box">
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <?php
+        // Check if current user is admin for display
+        $forum_is_admin = is_admin($_SESSION['username']);
+        ?>
+        <p style="color: #ccc; margin-bottom: 1rem;">Creating thread as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong>
+        <?php if ($forum_is_admin): ?>
           <span style="background: #ff6b6b; color: white; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">ADMIN</span>
+          <span style="color: #4f4; font-size: 0.8rem; margin-left: 0.5rem;">(No cooldown)</span>
         <?php endif; ?>
         </p>
-        <p style="font-size: 0.8rem; color: #888;">Created: <?= date('M j, Y \a\t g:i A', strtotime($row['created_at'])) ?></p>
-      </div>
-    <?php endwhile; ?>
-  </section>
+      <?php else: ?>
+        <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
+      <?php endif; ?>
+      
+      <?php if (!empty($cooldown_error)): ?>
+        <div style="color: #ff4444; background: rgba(255, 68, 68, 0.1); border: 1px solid #ff4444; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; text-align: center;">
+          <?= htmlspecialchars($cooldown_error) ?>
+        </div>
+      <?php endif; ?>
+      
+      <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">
+        <input name="title" type="text" placeholder="New thread title" required class="create-post-title-input">
+        <input name="tags" type="text" placeholder="Tags (comma-separated, e.g. gaming, discussion, help)" class="create-post-tags-input">
+        <p style="color: #888; font-size: 0.8rem; margin: -0.5rem 0 0 0;">Add tags to help others find your thread. Separate multiple tags with commas.</p>
+        <button type="submit" style="width: 200px; padding: 1rem 2rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; align-self: center; transition: background 0.3s;">Create Thread</button>
+      </form>
+    </div>
+
+    <section class="features">
+      <?php while ($row = $threads->fetchArray(SQLITE3_ASSOC)): ?>
+        <?php
+        // Check if thread author is admin
+        $thread_author_is_admin = is_admin($row['username']);
+        ?>
+        <div class="feature">
+          <h3>
+            <a href="../thread/?id=<?= $row['id'] ?>" style="color:#00ffe1">
+              <?= htmlspecialchars($row['title']) ?>
+            </a>
+          </h3>
+          <p>Started by <strong><?= htmlspecialchars($row['username']) ?></strong>
+          <?php if ($thread_author_is_admin): ?>
+            <span style="background: #ff6b6b; color: white; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">ADMIN</span>
+          <?php endif; ?>
+          </p>
+          <p style="font-size: 0.8rem; color: #888;">Created: <?= date('M j, Y \a\t g:i A', strtotime($row['created_at'])) ?></p>
+        </div>
+      <?php endwhile; ?>
+    </section>
+  </main>
 
   <footer>
     &copy; <?= date("Y") ?> Xenon Forum

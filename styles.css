@@ -4,12 +4,15 @@
 
 body {
   margin: 0;
-  /*background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 100%);*/
   background-color: #111;
   font-family: 'Orbitron', sans-serif;
   color: #00ffe1;
   overflow-x: hidden;
-  position:relative;
+  position: relative;
+  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 #bgCanvas {
@@ -95,7 +98,7 @@ header p {
 
 /* Footer */
 footer {
-  background: #000;
+  background: #111;
   text-align: center;
   padding: 2rem;
   color: #666;
@@ -106,6 +109,10 @@ footer {
 /* ==========================================================================
    CONTENT BOXES
    ========================================================================== */
+
+main {
+  flex: 1;
+}
 
 /* IP Box */
 .ip-box {
@@ -311,10 +318,6 @@ input[type="text"]:focus {
       height: 100%;
       z-index: -1;
       pointer-events: none;
-    }
-
-    body {
-      position: relative;
     }
 
 

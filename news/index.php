@@ -64,9 +64,10 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
   </style>
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
   
+  <canvas id="bgCanvas"></canvas>
   <div id="headers"></div>
+  
   <main class="news-container">
     <h2>Latest News</h2>
     <div id="news-articles">
@@ -77,6 +78,7 @@ rsort($articleFiles); // Reverse alphabetical order (most recent first)
       <?php endforeach; ?>
     </div>
   </main>
+
   <footer>
     © 2025 Xenon Minecraft Server. All Rights Reserved.
   </footer>

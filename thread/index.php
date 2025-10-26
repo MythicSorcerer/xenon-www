@@ -486,166 +486,168 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
         <p>Thread Discussion</p>
     </header>
 
-    <div style="text-align: center;">
-        <a href="/forum/" class="back-link">← Back to Forum</a>
-    </div>
-
-    <div class="thread-header">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <h2 class="thread-title"><?= htmlspecialchars($thread['title']) ?></h2>
-                <?php
-                // Get and display thread tags
-                $thread_tags = getThreadTags($db, $thread_id);
-                if (!empty($thread_tags)):
-                ?>
-                    <div style="margin: 0.1rem 0 0.4rem 0;">
-                        <?php foreach ($thread_tags as $tag): ?>
-                            <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-                <div class="thread-meta">
-                    Started by <strong><?= htmlspecialchars($thread['username']) ?></strong>
-                    on <?= date('M j, Y \a\t g:i A', strtotime($thread['created_at'])) ?>
-                </div>
-            </div>
-            <?php
-            // Check if current user can delete this thread
-            $can_delete_thread = false;
-            $thread_delete_button_text = 'Delete Thread';
-            $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-            
-            // Admin can delete any thread
-            if ($is_current_user_admin) {
-                $can_delete_thread = true;
-                $thread_delete_button_text = 'Delete Thread (Admin)';
-            }
-            // Logged-in user can delete their own threads
-            elseif (isset($_SESSION['user_id']) && $thread['user_id'] == $_SESSION['user_id']) {
-                $can_delete_thread = true;
-                $thread_delete_button_text = 'Delete Thread';
-            }
-            // Anonymous user can delete their own thread from same IP within 10 minutes
-            elseif (!isset($_SESSION['user_id']) && !$thread['user_id'] && $thread['ip_address'] == $current_ip) {
-                $thread_time = strtotime($thread['created_at']);
-                $current_time = time();
-                $time_diff = $current_time - $thread_time;
-                
-                if ($time_diff <= 600) { // 10 minutes = 600 seconds
-                    $can_delete_thread = true;
-                    $remaining_minutes = ceil((600 - $time_diff) / 60);
-                    $thread_delete_button_text = "Delete Thread ({$remaining_minutes}min left)";
-                }
-            }
-            ?>
-            <?php if ($can_delete_thread): ?>
-                <form method="post" style="margin: 0;">
-                    <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="padding: 0.5rem 1rem;"><?= htmlspecialchars($thread_delete_button_text) ?></button>
-                </form>
-            <?php endif; ?>
+    <main>
+        <div style="text-align: center;">
+            <a href="/forum/" class="back-link">← Back to Forum</a>
         </div>
-    </div>
 
-    <div class="posts-container">
-        <?php while ($post = $posts_result->fetchArray(SQLITE3_ASSOC)): ?>
-            <?php
-            // Check if post author is admin using admin_config.php
-            $post_author_is_admin = false;
-            if ($post['user_id']) {
-                $post_author_is_admin = isCurrentUserAdmin($db, $post['user_id']);
-            }
-            
-            // Check if current user can delete this post
-            $can_delete_post = false;
-            $delete_button_text = 'Delete';
-            $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-            
-            // Admin can delete any post
-            if ($is_current_user_admin) {
-                $can_delete_post = true;
-                $delete_button_text = 'Delete (Admin)';
-            }
-            // Logged-in user can delete their own posts
-            elseif (isset($_SESSION['user_id']) && $post['user_id'] == $_SESSION['user_id']) {
-                $can_delete_post = true;
-                $delete_button_text = 'Delete';
-            }
-            // Anonymous user can delete their own post from same IP within 10 minutes
-            elseif (!isset($_SESSION['user_id']) && !$post['user_id'] && $post['ip_address'] == $current_ip) {
-                $post_time = strtotime($post['created_at']);
-                $current_time = time();
-                $time_diff = $current_time - $post_time;
-                
-                if ($time_diff <= 600) { // 10 minutes = 600 seconds
-                    $can_delete_post = true;
-                    $remaining_minutes = ceil((600 - $time_diff) / 60);
-                    $delete_button_text = "Delete ({$remaining_minutes}min left)";
-                }
-            }
-            ?>
-            <div class="post">
-                <div class="post-header">
-                    <span class="post-author">
-                        <?= htmlspecialchars($post['username']) ?>
-                        <?php if ($post_author_is_admin): ?>
-                            <span class="admin-badge">ADMIN</span>
-                        <?php endif; ?>
-                    </span>
-                    <div>
-                        <span class="post-date"><?= date('M j, Y \a\t g:i A', strtotime($post['created_at'])) ?></span>
-                        <?php if ($can_delete_post): ?>
-                            <form method="post" style="display: inline;">
-                                <button type="submit" name="delete_post" value="<?= $post['id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?')"><?= htmlspecialchars($delete_button_text) ?></button>
-                            </form>
-                        <?php endif; ?>
+        <div class="thread-header">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h2 class="thread-title"><?= htmlspecialchars($thread['title']) ?></h2>
+                    <?php
+                    // Get and display thread tags
+                    $thread_tags = getThreadTags($db, $thread_id);
+                    if (!empty($thread_tags)):
+                    ?>
+                        <div style="margin: 0.1rem 0 0.4rem 0;">
+                            <?php foreach ($thread_tags as $tag): ?>
+                                <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="thread-meta">
+                        Started by <strong><?= htmlspecialchars($thread['username']) ?></strong>
+                        on <?= date('M j, Y \a\t g:i A', strtotime($thread['created_at'])) ?>
                     </div>
                 </div>
-                <div class="post-content"><?= htmlspecialchars($post['content']) ?></div>
                 <?php
-                // Get and display post tags
-                $post_tags = getPostTags($db, $post['id']);
-                if (!empty($post_tags)):
+                // Check if current user can delete this thread
+                $can_delete_thread = false;
+                $thread_delete_button_text = 'Delete Thread';
+                $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+                
+                // Admin can delete any thread
+                if ($is_current_user_admin) {
+                    $can_delete_thread = true;
+                    $thread_delete_button_text = 'Delete Thread (Admin)';
+                }
+                // Logged-in user can delete their own threads
+                elseif (isset($_SESSION['user_id']) && $thread['user_id'] == $_SESSION['user_id']) {
+                    $can_delete_thread = true;
+                    $thread_delete_button_text = 'Delete Thread';
+                }
+                // Anonymous user can delete their own thread from same IP within 10 minutes
+                elseif (!isset($_SESSION['user_id']) && !$thread['user_id'] && $thread['ip_address'] == $current_ip) {
+                    $thread_time = strtotime($thread['created_at']);
+                    $current_time = time();
+                    $time_diff = $current_time - $thread_time;
+                    
+                    if ($time_diff <= 600) { // 10 minutes = 600 seconds
+                        $can_delete_thread = true;
+                        $remaining_minutes = ceil((600 - $time_diff) / 60);
+                        $thread_delete_button_text = "Delete Thread ({$remaining_minutes}min left)";
+                    }
+                }
                 ?>
-                    <div style="margin-top: 0.4rem; padding-top: 0.2rem; border-top: 1px solid #333;">
-                        <?php foreach ($post_tags as $tag): ?>
-                            <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
-                        <?php endforeach; ?>
-                    </div>
+                <?php if ($can_delete_thread): ?>
+                    <form method="post" style="margin: 0;">
+                        <button type="submit" name="delete_thread" value="1" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entire thread? This action cannot be undone.')" style="padding: 0.5rem 1rem;"><?= htmlspecialchars($thread_delete_button_text) ?></button>
+                    </form>
                 <?php endif; ?>
             </div>
-        <?php endwhile; ?>
-    </div>
+        </div>
 
-    <div class="reply-form">
-        <h3>Reply to Thread</h3>
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <?php
-            // Check if current user is admin for display using admin_config.php
-            $current_user_is_admin = isCurrentUserAdmin($db, $_SESSION['user_id']);
-            ?>
-            <p>Posting as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong>
-            <?php if ($current_user_is_admin): ?>
-                <span class="admin-badge">ADMIN</span>
-                <span style="color: #4f4; font-size: 0.8rem; margin-left: 0.5rem;">(No cooldown)</span>
+        <div class="posts-container">
+            <?php while ($post = $posts_result->fetchArray(SQLITE3_ASSOC)): ?>
+                <?php
+                // Check if post author is admin using admin_config.php
+                $post_author_is_admin = false;
+                if ($post['user_id']) {
+                    $post_author_is_admin = isCurrentUserAdmin($db, $post['user_id']);
+                }
+                
+                // Check if current user can delete this post
+                $can_delete_post = false;
+                $delete_button_text = 'Delete';
+                $current_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+                
+                // Admin can delete any post
+                if ($is_current_user_admin) {
+                    $can_delete_post = true;
+                    $delete_button_text = 'Delete (Admin)';
+                }
+                // Logged-in user can delete their own posts
+                elseif (isset($_SESSION['user_id']) && $post['user_id'] == $_SESSION['user_id']) {
+                    $can_delete_post = true;
+                    $delete_button_text = 'Delete';
+                }
+                // Anonymous user can delete their own post from same IP within 10 minutes
+                elseif (!isset($_SESSION['user_id']) && !$post['user_id'] && $post['ip_address'] == $current_ip) {
+                    $post_time = strtotime($post['created_at']);
+                    $current_time = time();
+                    $time_diff = $current_time - $post_time;
+                    
+                    if ($time_diff <= 600) { // 10 minutes = 600 seconds
+                        $can_delete_post = true;
+                        $remaining_minutes = ceil((600 - $time_diff) / 60);
+                        $delete_button_text = "Delete ({$remaining_minutes}min left)";
+                    }
+                }
+                ?>
+                <div class="post">
+                    <div class="post-header">
+                        <span class="post-author">
+                            <?= htmlspecialchars($post['username']) ?>
+                            <?php if ($post_author_is_admin): ?>
+                                <span class="admin-badge">ADMIN</span>
+                            <?php endif; ?>
+                        </span>
+                        <div>
+                            <span class="post-date"><?= date('M j, Y \a\t g:i A', strtotime($post['created_at'])) ?></span>
+                            <?php if ($can_delete_post): ?>
+                                <form method="post" style="display: inline;">
+                                    <button type="submit" name="delete_post" value="<?= $post['id'] ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?')"><?= htmlspecialchars($delete_button_text) ?></button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="post-content"><?= htmlspecialchars($post['content']) ?></div>
+                    <?php
+                    // Get and display post tags
+                    $post_tags = getPostTags($db, $post['id']);
+                    if (!empty($post_tags)):
+                    ?>
+                        <div style="margin-top: 0.4rem; padding-top: 0.2rem; border-top: 1px solid #333;">
+                            <?php foreach ($post_tags as $tag): ?>
+                                <span style="background: rgba(0, 255, 225, 0.2); color: #00ffe1; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; margin-right: 0.3rem; border: 1px solid #00ffe1;"><?= htmlspecialchars($tag) ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        </div>
+
+        <div class="reply-form">
+            <h3>Reply to Thread</h3>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php
+                // Check if current user is admin for display using admin_config.php
+                $current_user_is_admin = isCurrentUserAdmin($db, $_SESSION['user_id']);
+                ?>
+                <p>Posting as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong>
+                <?php if ($current_user_is_admin): ?>
+                    <span class="admin-badge">ADMIN</span>
+                    <span style="color: #4f4; font-size: 0.8rem; margin-left: 0.5rem;">(No cooldown)</span>
+                <?php endif; ?>
+                </p>
+            <?php else: ?>
+                <p class="anonymous-note">You are posting anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
             <?php endif; ?>
-            </p>
-        <?php else: ?>
-            <p class="anonymous-note">You are posting anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
-        <?php endif; ?>
-        
-        <?php if (!empty($cooldown_error)): ?>
-            <div class="cooldown-error"><?= htmlspecialchars($cooldown_error) ?></div>
-        <?php endif; ?>
-        
-        <form method="post">
-            <textarea name="content" placeholder="Write your reply here..." required></textarea>
-            <input name="tags" type="text" placeholder="Tags (optional, comma-separated)" class="create-post-tags-input" style="margin-top: 1rem;">
-            <p style="color: #888; font-size: 0.8rem; margin: 0.5rem 0 0 0;">Add tags to categorize your reply (optional).</p>
-            <br>
-            <button type="submit">Post Reply</button>
-        </form>
-    </div>
+            
+            <?php if (!empty($cooldown_error)): ?>
+                <div class="cooldown-error"><?= htmlspecialchars($cooldown_error) ?></div>
+            <?php endif; ?>
+            
+            <form method="post">
+                <textarea name="content" placeholder="Write your reply here..." required></textarea>
+                <input name="tags" type="text" placeholder="Tags (optional, comma-separated)" class="create-post-tags-input" style="margin-top: 1rem;">
+                <p style="color: #888; font-size: 0.8rem; margin: 0.5rem 0 0 0;">Add tags to categorize your reply (optional).</p>
+                <br>
+                <button type="submit">Post Reply</button>
+            </form>
+        </div>
+    </main>
 
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum
