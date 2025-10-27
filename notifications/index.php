@@ -9,7 +9,7 @@ $db = getDatabaseConnection();
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: auth.php');
+    header('Location: /login/');
     exit;
 }
 
@@ -22,7 +22,7 @@ if (isset($_GET['mark_read']) && is_numeric($_GET['mark_read'])) {
     $stmt->bindValue(':id', $notification_id, SQLITE3_INTEGER);
     $stmt->bindValue(':user_id', $user_id, SQLITE3_INTEGER);
     $stmt->execute();
-    header('Location: notifications.php');
+    header('Location: /notifications/');
     exit;
 }
 
@@ -31,7 +31,7 @@ if (isset($_GET['mark_all_read'])) {
     $stmt = $db->prepare('UPDATE notifications SET is_read = 1 WHERE user_id = :user_id');
     $stmt->bindValue(':user_id', $user_id, SQLITE3_INTEGER);
     $stmt->execute();
-    header('Location: notifications.php');
+    header('Location: /notifications/');
     exit;
 }
 
@@ -189,7 +189,7 @@ $unread_count = $unread_result->fetchArray(SQLITE3_ASSOC)['unread_count'];
                 <?php endif; ?>
             </h2>
             <?php if ($unread_count > 0): ?>
-                <a href="notifications.php?mark_all_read=1" class="mark-all-read">Mark All Read</a>
+                <a href="/notifications/?mark_all_read=1" class="mark-all-read">Mark All Read</a>
             <?php endif; ?>
         </div>
 
@@ -213,7 +213,7 @@ $unread_count = $unread_result->fetchArray(SQLITE3_ASSOC)['unread_count'];
                 <div class="notification-actions">
                     <a href="/thread/?id=<?= $notification['thread_id'] ?>#post-<?= $notification['post_id'] ?>">View Reply</a>
                     <?php if (!$notification['is_read']): ?>
-                        <a href="notifications.php?mark_read=<?= $notification['id'] ?>">Mark Read</a>
+                        <a href="/notifications/?mark_read=<?= $notification['id'] ?>">Mark Read</a>
                     <?php endif; ?>
                 </div>
             </div>

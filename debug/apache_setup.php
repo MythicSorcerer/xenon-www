@@ -237,7 +237,7 @@ if (count($errors) > 0) {
 echo "<h2>Next Steps</h2>";
 echo "<ol>";
 echo "<li>Test the forum by visiting <a href='forum.php' style='color:#0ff;'>forum.php</a></li>";
-echo "<li>Try creating a user account at <a href='auth.php' style='color:#0ff;'>auth.php</a></li>";
+echo "<li>Try creating a user account at <a href='/login/' style='color:#0ff;'>/login/</a></li>";
 echo "<li>If issues persist, check <a href='apache_diagnostic.php' style='color:#0ff;'>apache_diagnostic.php</a></li>";
 echo "<li>Remove setup files after testing: apache_setup.php, apache_diagnostic.php</li>";
 echo "</ol>";

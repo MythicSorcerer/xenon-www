@@ -78,7 +78,7 @@ try {
     <?php if (isset($_SESSION['user_id'])): ?>
       <p style="color: #ccc; margin-bottom: 1rem;">Creating thread as: <strong style="color: #00ffe1;"><?= htmlspecialchars($_SESSION['username']) ?></strong></p>
     <?php else: ?>
-      <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
+      <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="/login/" style="color: #00ffe1;">Login</a> to post with your username.</p>
     <?php endif; ?>
     
     <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">

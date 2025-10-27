@@ -96,8 +96,8 @@ php add_ip_cooldown.php
 - `index.html` - Homepage with project information
 - `forum.php` - Main forum page with thread listing and quick search
 - `thread.php` - Individual thread view with posts and reply functionality
-- `auth.php` - User authentication (login/register) system
-- `notifications.php` - User notification center with reply tracking
+- `/login/` - User authentication (login/register) system
+- `/notifications/` - User notification center with reply tracking
 - `search.php` - Advanced search interface with filtering options
 - `admin_dashboard.php` - Comprehensive admin control panel
 
@@ -118,7 +118,7 @@ php add_ip_cooldown.php
 ### Development & Debug Tools
 - `debug_db.php` - Database debugging and inspection tools
 - `forum_debug.php` - Forum-specific debugging interface
-- `test_notifications.php` - Notification system testing
+- `test_/notifications/` - Notification system testing
 - `apache_diagnostic.php` - Apache server diagnostics
 - `server-status.php` - Server status monitoring
 

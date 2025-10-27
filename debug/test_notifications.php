@@ -11,7 +11,7 @@ echo "<style>body{font-family:Arial;background:#000;color:#0ff;} .error{color:#f
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo "<p class='warning'>You need to be logged in to test notifications.</p>";
-    echo "<p><a href='auth.php' style='color:#0ff;'>Login here</a></p>";
+    echo "<p><a href='/login/' style='color:#0ff;'>Login here</a></p>";
     exit;
 }
 
@@ -92,7 +92,7 @@ echo "<form method='post'>";
 echo "<button type='submit' name='create_test_notification' style='padding:10px;background:#0ff;color:#000;border:none;margin:10px;'>Create Test Notification</button>";
 echo "</form>";
 
-echo "<p><a href='notifications.php' style='color:#0ff;'>View Notifications Page</a></p>";
+echo "<p><a href='/notifications/' style='color:#0ff;'>View Notifications Page</a></p>";
 echo "<p><a href='forum.php' style='color:#0ff;'>Back to Forum</a></p>";
 
 $db->close();

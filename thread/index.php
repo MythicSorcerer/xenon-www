@@ -632,7 +632,7 @@ $is_current_user_admin = isset($_SESSION['user_id']) && isCurrentUserAdmin($db, 
                 <?php endif; ?>
                 </p>
             <?php else: ?>
-                <p class="anonymous-note">You are posting anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
+                <p class="anonymous-note">You are posting anonymously. <a href="/login/" style="color: #00ffe1;">Login</a> to post with your username.</p>
             <?php endif; ?>
             
             <?php if (!empty($cooldown_error)): ?>

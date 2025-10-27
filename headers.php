@@ -81,9 +81,9 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
   <span id="notifications-info">
     <?php if (isset($_SESSION['user_id'])): ?>
       <?php if ($notification_count > 0): ?>
-        <a href="notifications.php" style="color: #00ffe1; text-decoration: none;">🔔 (<?= $notification_count ?>)</a>
+        <a href="/notifications/" style="color: #00ffe1; text-decoration: none;">🔔 (<?= $notification_count ?>)</a>
       <?php else: ?>
-        <a href="notifications.php" style="color: #ccc; text-decoration: none;">🔔</a>
+        <a href="/notifications/" style="color: #ccc; text-decoration: none;">🔔</a>
       <?php endif; ?>
     <?php else: ?>
       <span style="color: #666;">🔔</span>
@@ -105,9 +105,9 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
         <span style="background: #ff6b6b; color: white; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">ADMIN</span>
       <?php endif; ?>
       | <a href="/settings/" style="color: #00ffe1; text-decoration: none;">Settings</a>
-      | <a href="auth.php?logout=1" style="color: #ff6b6b; text-decoration: none;">Logout</a>
+      | <a href="/login/?logout=1" style="color: #ff6b6b; text-decoration: none;">Logout</a>
     <?php else: ?>
-      👤 <a href="auth.php" style="color: #00ffe1; text-decoration: none;">Login</a>
+      👤 <a href="/login/" style="color: #00ffe1; text-decoration: none;">Login</a>
       | <a href="/settings/" style="color: #00ffe1; text-decoration: none;">Settings</a>
     <?php endif; ?>
   </span>

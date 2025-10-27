@@ -163,7 +163,7 @@ try {
         <?php endif; ?>
         </p>
       <?php else: ?>
-        <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to post with your username.</p>
+        <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">You are creating a thread anonymously. <a href="/login/" style="color: #00ffe1;">Login</a> to post with your username.</p>
       <?php endif; ?>
       
       <?php if (!empty($cooldown_error)): ?>

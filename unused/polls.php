@@ -311,7 +311,7 @@ $option_names = [
       </p>
     <?php else: ?>
       <p style="text-align: center; color: #888; margin-bottom: 2rem;">
-        You are voting anonymously. <a href="auth.php" style="color: #00ffe1;">Login</a> to vote with your username.
+        You are voting anonymously. <a href="/login/" style="color: #00ffe1;">Login</a> to vote with your username.
       </p>
     <?php endif; ?>
 
