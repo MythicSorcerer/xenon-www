@@ -2,7 +2,7 @@
 session_start();
 
 // Include database initialization
-require_once 'debug/db_init.php';
+require_once '../debug/db_init.php';
 
 // Initialize database with automatic table creation
 $db = getDatabaseConnection();
@@ -87,7 +87,7 @@ if (isset($_GET['logout'])) {
 <html>
 <head>
     <title>Login / Register - Xenon Forum</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <style>
         .auth-container {
             max-width: 500px;
@@ -161,6 +161,7 @@ if (isset($_GET['logout'])) {
     </style>
 </head>
 <body>
+    <canvas id="bgCanvas"></canvas>
     <!-- Headers will be loaded here -->
     <div id="headers"></div>
     
@@ -168,69 +169,70 @@ if (isset($_GET['logout'])) {
         <h1>Xenon Forum</h1>
         <p>Login or Register</p>
     </header>
+    <main>
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div class="auth-form" id="login-form">
+                <h2>Login</h2>
+                <?php if (isset($login_error)): ?>
+                    <div class="error"><?= htmlspecialchars($login_error) ?></div>
+                <?php endif; ?>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="login-username">Username:</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password:</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" name="login" class="btn">Login</button>
+                </form>
+                <div class="toggle-form">
+                    Don't have an account? <a href="#" onclick="toggleForms()">Register here</a>
+                </div>
+            </div>
 
-    <div class="auth-container">
-        <!-- Login Form -->
-        <div class="auth-form" id="login-form">
-            <h2>Login</h2>
-            <?php if (isset($login_error)): ?>
-                <div class="error"><?= htmlspecialchars($login_error) ?></div>
-            <?php endif; ?>
-            <form method="post">
-                <div class="form-group">
-                    <label for="login-username">Username:</label>
-                    <input type="text" id="login-username" name="username" required>
+            <!-- Registration Form -->
+            <div class="auth-form" id="register-form" style="display: none;">
+                <h2>Register</h2>
+                <?php if (!empty($errors)): ?>
+                    <div class="error">
+                        <?php foreach ($errors as $error): ?>
+                            <div><?= htmlspecialchars($error) ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="register-username">Username:</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email:</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password:</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" name="register" class="btn">Register</button>
+                </form>
+                <div class="toggle-form">
+                    Already have an account? <a href="#" onclick="toggleForms()">Login here</a>
                 </div>
-                <div class="form-group">
-                    <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" name="password" required>
-                </div>
-                <button type="submit" name="login" class="btn">Login</button>
-            </form>
-            <div class="toggle-form">
-                Don't have an account? <a href="#" onclick="toggleForms()">Register here</a>
             </div>
         </div>
-
-        <!-- Registration Form -->
-        <div class="auth-form" id="register-form" style="display: none;">
-            <h2>Register</h2>
-            <?php if (!empty($errors)): ?>
-                <div class="error">
-                    <?php foreach ($errors as $error): ?>
-                        <div><?= htmlspecialchars($error) ?></div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-            <form method="post">
-                <div class="form-group">
-                    <label for="register-username">Username:</label>
-                    <input type="text" id="register-username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-email">Email:</label>
-                    <input type="email" id="register-email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-password">Password:</label>
-                    <input type="password" id="register-password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm_password" required>
-                </div>
-                <button type="submit" name="register" class="btn">Register</button>
-            </form>
-            <div class="toggle-form">
-                Already have an account? <a href="#" onclick="toggleForms()">Login here</a>
-            </div>
-        </div>
-    </div>
-
+    </main>
     <footer>
         &copy; <?= date("Y") ?> Xenon Forum
     </footer>
     <script src="/loadHeaders.js"></script>
+    <script src="/bg-animation.js"></script>
     <script>
 
         function toggleForms() {
