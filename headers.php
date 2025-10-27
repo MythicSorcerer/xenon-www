@@ -104,11 +104,11 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
       <?php if ($header_is_admin): ?>
         <span style="background: #ff6b6b; color: white; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 0.3rem;">ADMIN</span>
       <?php endif; ?>
-      | <a href="settings.php" style="color: #00ffe1; text-decoration: none;">Settings</a>
+      | <a href="/settings/" style="color: #00ffe1; text-decoration: none;">Settings</a>
       | <a href="auth.php?logout=1" style="color: #ff6b6b; text-decoration: none;">Logout</a>
     <?php else: ?>
       👤 <a href="auth.php" style="color: #00ffe1; text-decoration: none;">Login</a>
-      | <a href="settings.php" style="color: #00ffe1; text-decoration: none;">Settings</a>
+      | <a href="/settings/" style="color: #00ffe1; text-decoration: none;">Settings</a>
     <?php endif; ?>
   </span>
 </div>
