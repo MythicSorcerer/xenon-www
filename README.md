@@ -99,7 +99,7 @@ php add_ip_cooldown.php
 - `/login/` - User authentication (login/register) system
 - `/notifications/` - User notification center with reply tracking
 - `search.php` - Advanced search interface with filtering options
-- `admin_dashboard.php` - Comprehensive admin control panel
+- `/admin-dashboard/` - Comprehensive admin control panel
 
 ### Information Pages
 - `news.php` - News and announcements system

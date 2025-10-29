@@ -91,7 +91,7 @@ body, html, input, textarea, button, select, h1, h2, h3, h4, h5, h6, p, div, spa
   </span>
   <span id="admin-info">
     <?php if (isset($_SESSION['user_id']) && isCurrentUserAdmin($db, $_SESSION['user_id'])): ?>
-      <a href="admin_dashboard.php" style="background: rgba(255, 107, 107, 0.2); border: 1px solid #ff6b6b; border-radius: 3px; color: #ff6b6b; text-decoration: none; padding: 0.2rem 0.4rem; font-size: 0.8rem; font-weight: bold;">⚙️ Admin Dashboard</a>
+      <a href="/admin-dashboard/" style="background: rgba(255, 107, 107, 0.2); border: 1px solid #ff6b6b; border-radius: 3px; color: #ff6b6b; text-decoration: none; padding: 0.2rem 0.4rem; font-size: 0.8rem; font-weight: bold;">⚙️ Admin Dashboard</a>
     <?php endif; ?>
   </span>
   <span id="user-info">
