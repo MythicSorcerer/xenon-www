@@ -94,17 +94,18 @@ php add_ip_cooldown.php
 
 ### Core Forum Pages
 - `index.html` - Homepage with project information
-- `forum.php` - Main forum page with thread listing and quick search
-- `thread.php` - Individual thread view with posts and reply functionality
+- `/info/` - Clone of index
+- `/forum/` - Main forum page with thread listing and quick search
+- `/thread/` - Individual thread view with posts and reply functionality
 - `/login/` - User authentication (login/register) system
 - `/notifications/` - User notification center with reply tracking
 - `/search/` - Advanced search interface with filtering options
 - `/admin-dashboard/` - Comprehensive admin control panel
 
 ### Information Pages
-- `news.php` - News and announcements system
-- `events.php` - Events calendar and listings
-- `faq.php` - Frequently asked questions
+- `/news/` - News and announcements system
+- `/events/` - Events calendar and listings
+- `/faq/` - Frequently asked questions
 - `rules.php` - Forum rules and guidelines
 - `support.php` - Support and help information
 - `status.php` - Server status and system information
