@@ -139,13 +139,13 @@ try {
   <main>
     <!-- Quick Search Bar -->
     <div style="max-width: 800px; margin: 0.5rem auto; padding: 0 1rem;">
-      <form method="get" action="search.php" style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <form method="get" action="/search/" style="display: flex; flex-direction: column; gap: 0.3rem;">
         <div style="display: flex; gap: 0.5rem;">
           <input name="q" type="text" placeholder="Quick search threads and posts..." class="create-post-title-input" style="flex: 1;">
           <button type="submit" style="padding: 0.8rem 1.5rem; background: #00ffe1; color: #000; border: none; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; transition: background 0.3s;">Search</button>
         </div>
         <div style="text-align: left;">
-          <a href="search.php" style="color: #00ffe1; text-decoration: none; font-size: 0.75rem; transition: background 0.3s;">Advanced Search</a>
+          <a href="/search/" style="color: #00ffe1; text-decoration: none; font-size: 0.75rem; transition: background 0.3s;">Advanced Search</a>
         </div>
       </form>
     </div>

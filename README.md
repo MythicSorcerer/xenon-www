@@ -98,7 +98,7 @@ php add_ip_cooldown.php
 - `thread.php` - Individual thread view with posts and reply functionality
 - `/login/` - User authentication (login/register) system
 - `/notifications/` - User notification center with reply tracking
-- `search.php` - Advanced search interface with filtering options
+- `/search/` - Advanced search interface with filtering options
 - `/admin-dashboard/` - Comprehensive admin control panel
 
 ### Information Pages
